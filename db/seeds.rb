@@ -1,7 +1,7 @@
 #users 1 of type admin and 1 of type teller
 jayz=User.create(username: "jayz", name: "Sean Carter", password: "Hova123", category: "Admin")
-lewis=User.create(username: "lewis", name: "Lewis Hamilton" password: "HammerTime" category: "Teller")
-perror=User.create(username: "arnold", name: "Arnold Bwaila" password: "A123" category: "Teller")
+lewis=User.create(username: "lewis", name: "Lewis Hamilton", password: "HammerTime", category: "Teller")
+perror=User.create(username: "arnold", name: "Arnold Bwaila", password: "A123", category: "Teller")
 
 #items
 fstitem= Item.create(name: "Ace of Spades Vodka", descritption:"Premium Vodka 40% vol" price:38.50, quantity:1, restock_level:1 )
