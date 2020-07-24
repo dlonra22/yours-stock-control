@@ -7,6 +7,6 @@ end
 #use controllers
 
 #enable delete and patch requests
-'use Rack::MethodOverride'
+use Rack::MethodOverride
 
 run ApplicationController
