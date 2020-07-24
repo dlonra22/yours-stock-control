@@ -4,6 +4,11 @@ lewis=User.create(username: "lewis" name: "Lewis Hamilton" password: "HammerTime
 
 #items
 1stitem= Item.create(name: "Ace of Spades Vodka", descritption:"Premium Vodka 40% vol" price:38.50, quantity:1, restock_level:1 )
-2nditem= Item.create(name: "Uncle Bens Microwavable Rice Spicy Mexican", descritption:"Microwavable Rice Spicy Mexican Flavour Serves 2" price:2.99, quantity:10, restock_level:4 )
+2nditem= Item.create(name: "Uncle Bens Microwavable Rice Spicy Mexican", descritption:"Microwavable Rice Spicy Mexican Flavour Serves 2" price:2.99, quantity:2, restock_level:4 )
 
-#transactions 1 of type sale, 1 of type restock
+#transactions 2 of type sale, 2 of type restock
+trans1 = Transaction.create(user_id:1 , item_id:2, quantity: 3, type:"Restock" )
+trans2 = Transaction.create(user_id:2 , item_id:1, quantity: 1, type:"Restock" )
+trans3 = Transaction.create(user_id:2 , item_id:2, quantity: 3, type:"Sale" )
+trans4 = Transaction.create(user_id:1 , item_id:1, quantity: 1, type:"Sale" )
+
