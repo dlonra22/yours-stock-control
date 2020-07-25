@@ -2,22 +2,22 @@ class TransactionsController < ApplicationController
 
   # GET: users/transactions
   get "users/transactions" do
-    erb :"users/transactions/index.html"
+   # erb :"users/transactions/index.html"
   end
 
   # GET: users/transactions/new
   get "users/transactions/new" do
-    erb :"/transactions/new.html"
+   # erb :"/transactions/new.html"
   end
 
   # POST: users/transactions
   post "/transactions" do
-    redirect "/transactions"
+  #  redirect "/transactions"
   end
 
   # GET: users/transactions/5
   get "users/transactions/:id" do
-    erb :"/transactions/show.html"
+ #   erb :"/transactions/show.html"
   end
 
   # GET: /transactions/5/edit should not be enable to do the below.
