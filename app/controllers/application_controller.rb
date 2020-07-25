@@ -10,9 +10,7 @@ class ApplicationController < Sinatra::Base
   get "/" do
     if User.all.empty?
       erb :register
-    else 
-      @users = User.all 
-      @admins = User.count(:all, :conditions => "is_admin = true")
+    else
       erb :login
     end
   end
