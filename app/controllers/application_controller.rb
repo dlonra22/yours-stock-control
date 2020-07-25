@@ -11,6 +11,8 @@ class ApplicationController < Sinatra::Base
     if User.all.empty?
       erb :register
     else 
+      @users = User.all 
+      
       erb :login
     end
   end

@@ -7,7 +7,7 @@
       <p>Full Name: <input type="Text" name="name"></p>
       <p>Password: <input type="Text" name="username"></p>
       <p>Is Admin?: Yes</p>
-      <%if User.all.count(is_admin: true)%>
+      <%if @user.all.count(is_admin: true)%>
       <input type="checkbox" name="is_admin" value=true />
     </form>
 </div>
