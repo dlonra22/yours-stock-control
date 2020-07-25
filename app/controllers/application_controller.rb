@@ -12,7 +12,7 @@ class ApplicationController < Sinatra::Base
       erb :register
     else 
       @users = User.all 
-      
+      @admins = User.count(:all, :conditions => "is_admin = true")
       erb :login
     end
   end
