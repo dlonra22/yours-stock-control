@@ -8,7 +8,11 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    erb :welcome
+    if User.all.empty?
+      redirect "/user/signup"
+    else 
+      redirect "/user/login"
+    end
   end
 
 end
