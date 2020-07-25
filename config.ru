@@ -10,3 +10,7 @@ end
 use Rack::MethodOverride
 
 run ApplicationController
+use TransactionsController
+use ItemsController
+use UsersController
+use UsersController.rbsController
