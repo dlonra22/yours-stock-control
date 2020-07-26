@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   get "/" do
     if User.all.empty?
+      @appregister = true #sends a status check to the register true = first registration of app/ no users in database
       erb :register
     else
       erb :login
@@ -20,8 +21,9 @@ class UsersController < ApplicationController
 
   # GET: /users/new
   get "/users/new" do
-   # erb :"/users/new.html"
-  end
+     @appregister = false
+    erb : register
+   end
 
   # POST: /users
   post "/user/:id/users" do
