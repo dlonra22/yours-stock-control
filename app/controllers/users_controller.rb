@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   # GET: /users
-  get "/user/:id/users" do #only admins
+  get "/users/:id/users" do #only admins
     @users = User.all
     @user = User.find_by_id(params[:id])
     if @user.is_admin
