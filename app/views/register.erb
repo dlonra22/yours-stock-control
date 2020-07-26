@@ -3,19 +3,19 @@
     <h2>Register Your App</h2>
     <h4>Please Register An Admin Below To Get Started With Your App</p></h4><br><br>
     <form method="post" action="/">
-      <label for="username">Username:</label>
-      <input type="Text" name="username"><br>
+      <p><label for="username">Username:</label>
+      <input type="Text" name="username"></p>
       
-      <label for="name">Full Name:</label>
-      <input type="Text" name="name" id="name"><br>
+      <p><label for="name">Full Name:</label>
+      <input type="Text" name="name" id="name"></p>
       
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password"><br>
+      <p><label for="password">Password:</label>
+      <input type="password" name="password" id="password"></p>
       
-      <label for="password_confirmation">Confirm Your Password:</label>
-      <input type="password" name="password_confirmation" id="password_confirmation"><br>
+      <p><label for="password_confirmation">Confirm Your Password:</label>
+      <input type="password" name="password_confirmation" id="password_confirmation"></p>
       
-      <label for="is_admin">Is an Admin?:</label>
+      <p><label for="is_admin">Is an Admin?:</label>
       <%if @appregister %>
       <%status = "disabled"%>
       <%chd = "checked"%>
@@ -24,9 +24,8 @@
       <%status=""%>
       <%end%>
       <input name="is_admin" id="is_admin" type="checkbox" <%=status%> <%=chd%>/>
-      <input type="hidden" name="is_admin" <%=chd%> /><br>
-      
-      <input type="submit" name="Submit" value="Log In">
+      <input type="hidden" name="is_admin" <%=chd%> /></p>
+      <input type="submit" name="Submit" value="Create New User">
     </form>
     
 </div>

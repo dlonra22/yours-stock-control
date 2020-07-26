@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   # GET: /users/new
   get "/users/new" do
      @appregister = false
-    erb : register
+    erb :register
    end
 
   # POST: /users
