@@ -7,12 +7,4 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
   end
 
-  get "/" do
-    if User.all.empty?
-      erb :register
-    else
-      erb :login
-    end
-  end
-
 end

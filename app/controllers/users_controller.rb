@@ -1,7 +1,14 @@
 class UsersController < ApplicationController
 
-  # GET: /users
-  get "/users/:id/users" do #only admins
+  get "/" do
+    if User.all.empty?
+      erb :register
+    else
+      erb :login
+    end
+  end
+  
+  get "/users" do #only admins
     @users = User.all
     @user = User.find_by_id(params[:id])
     if @user.is_admin
@@ -12,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   # GET: /users/new
-  get "/user/:id/users/new" do
+  get "/users/new" do
    # erb :"/users/new.html"
   end
 
