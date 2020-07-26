@@ -1,33 +1,33 @@
 class ItemsController < ApplicationController
 
   # GET: /users/items
-  get "users/:id/items" do
+  get "user/:id/items" do
     #erb :"users/items/index.html"
   end
 
 
   # GET: /users/items/new only for admins
-  get "users/:id/items/new" do
+  get "user/:id/items/new" do
    # erb :"/items/new.html"
   end
 
   # POST: users/items
-  post "users/:id/items" do
+  post "user/:id/items" do
    # redirect "/items"
   end
 
   # GET: users/items/5
-  get "users/:id/items/:iid" do
+  get "user/:id/items/:iid" do
    # erb :"/items/show.html"
   end
 
   # GET: users/items/5/edit
-  get "users/:id/items/:iid/edit" do
+  get "user/:id/items/:iid/edit" do
    # erb :"/items/edit.html"
   end
 
   # PATCH: users/items/5
-  patch "users/:id/items/:iid" do
+  patch "user/:id/items/:iid" do
    # redirect "/items/:id"
   end
 

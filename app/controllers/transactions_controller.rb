@@ -1,22 +1,22 @@
 class TransactionsController < ApplicationController
 
   # GET: users/transactions
-  get "users/:id/transactions" do
+  get "user/:id/transactions" do
    # erb :"users/transactions/index.html"
   end
 
   # GET: users/transactions/new
-  get "users/:id/transactions/new" do
+  get "user/:id/transactions/new" do
    # erb :"/transactions/new.html"
   end
 
   # POST: users/transactions
-  post "users/:id/transactions" do
+  post "user/:id/transactions" do
   #  redirect "/transactions"
   end
 
   # GET: transactions show page
-  get "users/:id/transactions/:tid" do
+  get "user/:id/transactions/:tid" do
  #   erb :"/transactions/show.html"
   end
 

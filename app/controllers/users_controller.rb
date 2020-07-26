@@ -1,18 +1,24 @@
 class UsersController < ApplicationController
 
   # GET: /users
-  get "/users" do
-    #erb :"/users/index.html"
+  get "/user/:id/users" do #only admins
+    @users = User.all
+    @user = User.find_by_id(params[:id])
+    if @user.is_admin
+    #erb : allusers 
+    else
+      erb :notadmin
+    end
   end
 
   # GET: /users/new
-  get "/users/new" do
+  get "/user/:id/users/new" do
    # erb :"/users/new.html"
   end
 
   # POST: /users
-  post "/users" do
-    #redirect "/users"
+  post "/user/:id/users" do
+    redirect "/users"
   end
 
   # GET: /users/5
