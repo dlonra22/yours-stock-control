@@ -31,6 +31,7 @@ class UsersController < ApplicationController
     
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
+      redirect "users/#{user.id}/home"
     
     else
       #show error message
