@@ -18,10 +18,13 @@
       <label for="is_admin">Is an Admin?:</label>
       <%if @appregister %>
       <%status = "disabled"%>
-      <%chckd = "1"%>
-      <%else
-      <input name="is_admin" id="is_admin" type="checkbox" <%=status%> />
-      <input type="hidden" name="is_admin" value="true" /><br>
+      <%chd = "checked"%>
+      <%else%>
+      <%chd =""%>
+      <%status=""%>
+      <%end%>
+      <input name="is_admin" id="is_admin" type="checkbox" <%=status%> <%=chd%>/>
+      <input type="hidden" name="is_admin" <%=chd%> /><br>
       
       <input type="submit" name="Submit" value="Log In">
     </form>
