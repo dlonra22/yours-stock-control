@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   get "/" do
+    #if already logged in redirect to users home page using sessions
     if User.all.empty?
       redirect "/register"
     else
@@ -10,10 +11,12 @@ class UsersController < ApplicationController
   end
   
   get "/login"
+    #show error if already logged in
     erb :login 
   end
   
   get "/register"
+  #check is user is already logged in, if so redirect to users/new
    if User.all.empty?
       @appregister = true #sends a status check to the register true = first registration of app/ no users in database
       erb:register 
