@@ -2,7 +2,6 @@ class UsersController < ApplicationController
 
   get "/" do
     if User.all.empty?
-      @appregister = true #sends a status check to the register true = first registration of app/ no users in database
       redirect "/register"
     else
       erb :login
@@ -19,12 +18,22 @@ class UsersController < ApplicationController
       @appregister = true #sends a status check to the register true = first registration of app/ no users in database
       erb:register 
    else 
-     erb not admin
-     redirect /
+     erb :notadmin
+     redirect "/login"
+   end
   end
   
   post "/login" do
+    user = User.find_by(username: params[:username])
     
+    if user && user.authenticate(params[:password])
+    
+    else
+      #show error message
+      redirect "/login"
+    end 
+  end
+      
   
   
   
