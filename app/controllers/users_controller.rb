@@ -3,11 +3,30 @@ class UsersController < ApplicationController
   get "/" do
     if User.all.empty?
       @appregister = true #sends a status check to the register true = first registration of app/ no users in database
-      erb :register
+      redirect "/register"
     else
       erb :login
+      redirect "/login"
     end
   end
+  
+  get "/login"
+    erb :login 
+  end
+  
+  get "/register"
+   if User.all.empty?
+      @appregister = true #sends a status check to the register true = first registration of app/ no users in database
+      erb:register 
+   else 
+     erb not admin
+     redirect /
+  end
+  
+  post "/login" do
+    
+  
+  
   
   get "/users" do #only admins
     @users = User.all
