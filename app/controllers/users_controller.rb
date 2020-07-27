@@ -9,11 +9,15 @@ class UsersController < ApplicationController
     user = User.find_by(username: params[:username])
     puts user.password
     if user && user.authenticate(params[:password])
+      puts "i'm in"
       session[:user_id] = user.id
+      puts current_user.id
       redirect "users/#{user.id}"
     
     else
       #show error message
+      puts "im not in"
+      puts User.all
       redirect "/login"
     end 
   end
@@ -22,6 +26,7 @@ class UsersController < ApplicationController
     @user = User.find_by_id(current_user.id)
     puts @user
     erb :"users/home"
+    
   end
   
   get "/register" do
