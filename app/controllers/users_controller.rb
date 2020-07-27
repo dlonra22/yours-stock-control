@@ -40,10 +40,16 @@ class UsersController < ApplicationController
   
    post "/register" do
      "Hey you registered"
+     puts params
      User.create(params)
      user = User.find_by(username: params[:username])
-     session[:user_id] = user.id
-     redirect "users/#{user.id}"
+     if user
+        session[:user_id] = user.id
+        redirect "users/#{user.id}"
+     else 
+       #show error messages
+       redirect "/register"
+     end
    end
   
 
