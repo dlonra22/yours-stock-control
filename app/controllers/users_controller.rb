@@ -10,20 +10,9 @@ class UsersController < ApplicationController
     end
   end
   
-  get "/login"
+  get "/login" do
     #show error if already logged in
     erb :login 
-  end
-  
-  get "/register"
-  #check is user is already logged in, if so redirect to users/new
-   if User.all.empty?
-      @appregister = true #sends a status check to the register true = first registration of app/ no users in database
-      erb:register 
-   else 
-     erb :notadmin
-     redirect "/login"
-   end
   end
   
   post "/login" do
@@ -38,6 +27,21 @@ class UsersController < ApplicationController
       redirect "/login"
     end 
   end
+  
+  get "/register" do
+  #check is user is already logged in, if so redirect to users/new
+   if User.all.empty?
+      @appregister = true #sends a status check to the register true = first registration of app/ no users in database
+      erb:register 
+   else 
+     erb :notadmin
+     redirect "/login"
+   end
+  end
+  
+   post "/register" do
+     "Hey you registered"
+   end
   
   get "users/:id/home" do 
   end
