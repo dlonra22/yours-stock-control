@@ -9,7 +9,7 @@ class ApplicationController < Sinatra::Base
     set :session_secret, SecureRandom.hex(64)
   end
   
-  Helpers do
+  helpers do
     def current_user(session)
       User.find_by(id: session[:user_id])
     end 

@@ -29,7 +29,8 @@ class UsersController < ApplicationController
   end
   
   get "users/:id" do 
-    erb "users/home"
+    @user = user.find_by_id(params[:id])
+    erb :"users/home.erb"
   end
   
   
@@ -47,6 +48,7 @@ class UsersController < ApplicationController
    post "/register" do
      "Hey you registered"
      User.create(params)
+     user = User.find_by(username: params[:username])
      session[:user_id] = user.id
      redirect "users/#{user.id}"
    end
@@ -75,10 +77,6 @@ class UsersController < ApplicationController
     redirect "/users"
   end
 
-  # GET: /users/5
-  get "/users/:id" do
-   # erb :"/users/show.html"
-  end
 
   # GET: /users/5/edit
   get "/users/:id/edit" do
