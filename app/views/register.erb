@@ -19,14 +19,14 @@
       <%if @appregister %>
       <%status = "disabled"%>
       <%chd ="checked"%>
-      <%hidden_value = "value='1'"%>
+      <%hidden_value = "value='true'"%>
       <%else%>
         <%chd =""%>
         <%hidden_value=""%>
         <%status=""%>
       <%end%>
       <input name="is_admin" id="is_admin" type="checkbox" <%=status%> <%=chd%>/>
-      <input type="hidden" name="is_admin" <%hidden_value%> /></p>
+      <input type="hidden" name="is_admin" id="is_admin" <%hidden_value%> /></p>
       <input type="submit" value="Create New User">
       </form>
     
