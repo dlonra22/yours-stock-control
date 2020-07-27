@@ -1,2 +1,20 @@
-<h1>Hello, <%=@user.name%>. Username: <%=@user.username%></h1>
-<h3>Please choose what you would like to do?</h3>
+<h2>Hello, <%=@user.name%>.</h2>
+<%if @user.is_admin %>
+    <%usertype = "Admin"%>
+<%else%>
+    <%usertype ="Teller"%>
+<%end%>
+<h3>Username: <%=@user.username%> UserType: <%=usertype%></h3>
+<h4>Please choose what you would like to do?</h4>
+<h3> Transactions</h3>
+<a href="/">Sell An Item</a> <a href="/">Restock An Item</a>
+<a href="/">My Transactions</a><br><br>
+<h3>Management Actions</h3>
+<%if @user.is_admin%>
+<a href="/">Manage Items Inventory</a>
+<a href="/">Manage Users</a>
+<a href="/">Transaction Reports</a>
+<%end%>
+<a href="/">Manage My Profile</a>
+
+

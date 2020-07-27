@@ -18,9 +18,9 @@
       <p><label for="is_admin">Is an Admin?:</label>
       <%if @appregister %>
       <%status = "disabled"%>
-      <%chd = "checked"%>
-      <%else%>
       <%chd ="value='1'"%>
+      <%else%>
+      <%chd =""%>
       <%status=""%>
       <%end%>
       <input name="is_admin" id="is_admin" type="checkbox" <%=status%> <%=chd%>/>
