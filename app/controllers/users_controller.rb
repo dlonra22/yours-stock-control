@@ -2,7 +2,9 @@ class UsersController < ApplicationController
 
   get "/login" do
     #show error if already logged in
-    if logged_in?
+    if User.all.empty?
+      redirect "/register"
+    elsif logged_in?
       redirect "/users/#{current_user.id}"
     else
       erb :login
@@ -22,12 +24,6 @@ class UsersController < ApplicationController
     end 
   end
   
-  get '/users/:id' do 
-    @user = User.find_by_id(params[:id])
-    @user
-    erb :"users/home"
-  end
-  
   get "/register" do
   #check is user is already logged in, if so redirect to users/new
    if User.all.empty?
@@ -39,9 +35,9 @@ class UsersController < ApplicationController
   end
   
    post "/register" do
-     "Hey you registered"
+     puts "Hey you registered"
      puts params
-     User.create(params)
+     user = User.create(params)
      user = User.find_by(username: params[:username])
      if user
         session[:user_id] = user.id
@@ -52,7 +48,12 @@ class UsersController < ApplicationController
      end
    end
   
-
+  get '/users/:id' do 
+      @user = User.find_by_id(params[:id])
+      @user
+      erb :"users/home"
+      redirect "/login"
+  end
   
   
   get "/users" do #only admins
