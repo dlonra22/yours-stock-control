@@ -38,7 +38,9 @@ class UsersController < ApplicationController
       redirect "/login"
     end 
   end
-      
+  
+  get "users/:id/home" do 
+  end
   
   
   
