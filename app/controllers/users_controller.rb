@@ -1,15 +1,5 @@
 class UsersController < ApplicationController
 
-  get "/" do
-    #if already logged in redirect to users home page using sessions
-    if User.all.empty?
-      redirect "/register"
-    else
-      erb :login
-      redirect "/login"
-    end
-  end
-  
   get "/login" do
     #show error if already logged in
     erb :login 
@@ -17,7 +7,7 @@ class UsersController < ApplicationController
   
   post "/login" do
     user = User.find_by(username: params[:username])
-    
+    puts user.password
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect "users/#{user.id}"
@@ -28,12 +18,11 @@ class UsersController < ApplicationController
     end 
   end
   
-  get "users/:id" do 
-    @user = user.find_by_id(params[:id])
-    erb :"users/home.erb"
+  get 'users/:id' do 
+    @user = User.find_by_id(current_user.id)
+    puts @user
+    erb :"users/home"
   end
-  
-  
   
   get "/register" do
   #check is user is already logged in, if so redirect to users/new
