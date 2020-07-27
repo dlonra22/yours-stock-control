@@ -2,31 +2,30 @@ class UsersController < ApplicationController
 
   get "/login" do
     #show error if already logged in
-    erb :login 
+    if logged_in?
+      redirect "/users/#{current_user.id}"
+    else
+      erb :login
+    end
   end
   
   post "/login" do
     user = User.find_by(username: params[:username])
     puts user.password
     if user && user.authenticate(params[:password])
-      puts "i'm in"
       session[:user_id] = user.id
-      puts current_user.id
       redirect "users/#{user.id}"
     
     else
       #show error message
-      puts "im not in"
-      puts User.all
       redirect "/login"
     end 
   end
   
-  get 'users/:id' do 
-    @user = User.find_by_id(current_user.id)
+  get '/users/:id' do 
+    @user = User.find_by_id(params[:id])
     puts @user
     erb :"users/home"
-    
   end
   
   get "/register" do
