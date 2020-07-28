@@ -23,14 +23,13 @@ class UsersController < ApplicationController
   end
   
   get "/register" do
-  #check is user is already logged in, if so redirect to users/new
+  #check is user is already logged in, if so redirect to users/admin/new
    if User.all.empty?
-      @appregister = true #sends a status check to the register true = first registration of app/ no users in database
       erb :register 
    elsif logged_in?
      user = User.find_by(id: current_user.id)
      if user.is_admin?
-       #erb :addnewuser
+       redirect "users/admin/new"
      else 
        #showerror message
        redirect "/users/#{user.id}"
@@ -55,7 +54,7 @@ class UsersController < ApplicationController
      end
    end
    
-  get "/users/admin/new" do
+  get "/users/allusers/new" do
    if logged_in?
       user = User.find_by(id: current_user.id)
       if user.is_admin?
@@ -69,17 +68,17 @@ class UsersController < ApplicationController
     end
   end
   
-   post "/users/admin/new" do
+   post "/users/allusers/new" do
      user = User.new
      user.username = params[:username]
      user.name = params[:name]
      user.password = params[:password]
      user.is_admin? = params[:is_admin?]
      if user.save
-        redirect "users/admin/#{user.id}"
+        redirect "users/allusers/#{user.id}"
      else 
        #show error messages
-       redirect "/users/admin/new"
+       redirect "/users/allusers/new"
      end
    end
   
