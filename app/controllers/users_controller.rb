@@ -90,11 +90,11 @@ class UsersController < ApplicationController
   
   get "/users/allusers" do #only admins
     @users = User.all
-    @user = User.find_by_id(params[:id])
+    @user = User.find_by_id(current_user.id)
     if @user.is_admin
       #erb : allusers 
     else
-      erb :notadmin
+      #show error
     end
   end
 
