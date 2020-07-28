@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       erb :register 
    elsif logged_in?
      user = User.find_by(id: current_user.id)
-     if user.is_admin?
+     if user.is_admin
        redirect "users/allusers/new"
      else 
        #showerror message
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
      user.username = params[:username]
      user.name = params[:name]
      user.password = params[:password]
-     user.is_admin? = params[:is_admin?]
+     user.is_admin = params[:is_admin]
      if user.save
         session[:user_id] = user.id
         redirect "users/#{user.id}"
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
   get "/users/allusers/new" do
    if logged_in?
       user = User.find_by(id: current_user.id)
-      if user.is_admin?
+      if user.is_admin
         erb :addnewuser
       else 
         #show error 
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
      user.username = params[:username]
      user.name = params[:name]
      user.password = params[:password]
-     user.is_admin? = params[:is_admin?]
+     user.is_admin = params[:is_admin]
      if user.save
         redirect "users/allusers/#{user.id}"
      else 
@@ -92,11 +92,11 @@ class UsersController < ApplicationController
   end
   
   
-  get "/users" do #only admins
+  get "/users/allusers" do #only admins
     @users = User.all
     @user = User.find_by_id(params[:id])
-    if @user.is_admin?
-    #erb : allusers 
+    if @user.is_admin
+      #erb : allusers 
     else
       erb :notadmin
     end
