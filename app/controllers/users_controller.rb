@@ -19,6 +19,7 @@ class UsersController < ApplicationController
     else
       #show error message
       redirect "/login"
+      im
     end 
   end
   

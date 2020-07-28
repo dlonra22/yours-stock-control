@@ -16,7 +16,6 @@ class ApplicationController < Sinatra::Base
     elsif User.all.empty?
       redirect "/register"
     else
-      erb :login
       redirect "/login"
     end
   end
