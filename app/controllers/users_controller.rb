@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     elsif logged_in?
       redirect "/users/#{current_user.id}"
     else
-      erb :login
+      erb :"users/login"
     end
   end
   
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   get "/register" do
   #check is user is already logged in, if so redirect to users/admin/new
    if User.all.empty?
-      erb :register 
+      erb :"users/register" 
    elsif logged_in?
      user = User.find_by(id: current_user.id)
      if user.is_admin
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
    if logged_in?
       user = User.find_by(id: current_user.id)
       if user.is_admin
-        erb :addnewuser
+        erb :"users/addnewuser"
       else 
         #show error 
         redirect "users/#{user.id}"
@@ -92,7 +92,7 @@ class UsersController < ApplicationController
     @user = User.find_by_id(current_user.id)
     if @user.is_admin
       @users = User.all
-      erb :allusers 
+      erb :"users/allusers" 
     else
       #show error
     end
@@ -100,7 +100,7 @@ class UsersController < ApplicationController
 
   # GET: /users/new
   get "/users/allusers/new" do
-    erb :addnewuser
+    erb :"users/addnewuser"
    end
 
   # POST: /users
