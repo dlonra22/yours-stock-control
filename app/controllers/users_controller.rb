@@ -13,11 +13,9 @@ class UsersController < ApplicationController
   
   post "/login" do
     user = User.find_by(username: params[:username])
-    puts user.password
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect "users/#{user.id}"
-    
     else
       #show error message
       redirect "/login"
@@ -28,18 +26,27 @@ class UsersController < ApplicationController
   #check is user is already logged in, if so redirect to users/new
    if User.all.empty?
       @appregister = true #sends a status check to the register true = first registration of app/ no users in database
-      erb:register 
-   else 
+      erb :register 
+   elsif logged_in?
+     user = User.find_by(id: current_user.id)
+     if user.is_admin
+       #erb :addnewuser
+     else 
+       #showerror message
+       redirect "/users/#{user.id}"
+     end
+   else
      redirect "/login"
    end
   end
   
    post "/register" do
-     puts "Hey you registered"
-     puts params
-     user = User.create(params)
-     user = User.find_by(username: params[:username])
-     if user
+     user = User.new
+     user.username = params[:username]
+     user.name = params[:name]
+     user.password = params[:password]
+     user.is_admin = params[:is_admin]
+     if user.save
         session[:user_id] = user.id
         redirect "users/#{user.id}"
      else 
@@ -50,9 +57,7 @@ class UsersController < ApplicationController
   
   get '/users/:id' do 
       @user = User.find_by_id(params[:id])
-      @user
       erb :"users/home"
-      redirect "/login"
   end
   
   
