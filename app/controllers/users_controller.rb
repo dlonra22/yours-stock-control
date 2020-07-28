@@ -29,7 +29,7 @@ class UsersController < ApplicationController
    elsif logged_in?
      user = User.find_by(id: current_user.id)
      if user.is_admin?
-       redirect "users/admin/new"
+       redirect "users/allusers/new"
      else 
        #showerror message
        redirect "/users/#{user.id}"
@@ -82,9 +82,13 @@ class UsersController < ApplicationController
      end
    end
   
-  get '/users/:id' do 
+  get '/users/:id' do
+    if logged_in?
       @user = User.find_by_id(params[:id])
       erb :"users/home"
+    else 
+      redirect "/login"
+    end
   end
   
   
@@ -99,29 +103,28 @@ class UsersController < ApplicationController
   end
 
   # GET: /users/new
-  get "/users/new" do
-     @appregister = false
-    erb :register
+  get "/users/allusers/new" do
+    erb :addnewuser
    end
 
   # POST: /users
-  post "/user/:id/users" do
-    redirect "/users"
-  end
+ # post "/user/allusers" do
+ #   redirect "/users"
+  #end
 
 
   # GET: /users/5/edit
-  get "/users/:id/edit" do
+ # get "/users/:id/edit" do
    # erb :"/users/edit.html"
-  end
+ # end
 
   # PATCH: /users/5
-  patch "/users/:id" do
+ # patch "/users/:id" do
     #redirect "/users/:id"
-  end
+ # end
 
   # DELETE: /users/5/delete
-  delete "/users/:id/delete" do
+  #delete "/users/:id/delete" do
    # redirect "/users"
-  end
+  #end
 end
