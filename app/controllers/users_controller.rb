@@ -55,34 +55,7 @@ class UsersController < ApplicationController
      end
    end
    
-  get "/users/allusers/new" do
-   if logged_in?
-      user = User.find_by(id: current_user.id)
-      if user.is_admin
-        erb :"users/addnewuser"
-      else 
-        #show error 
-        redirect "users/#{user.id}"
-      end 
-    else 
-      redirect "/login"
-    end
-  end
-  
-   post "/users/allusers/new" do
-     user = User.new
-     user.username = params[:username]
-     user.name = params[:name]
-     user.password = params[:password]
-     user.is_admin = params[:is_admin]
-     if user.save
-        redirect "users/allusers/#{user.id}"
-     else 
-       #show error messages
-       redirect "/users/allusers/new"
-     end
-   end
-  
+
   get '/users/:id' do
       @user = User.find_by_id(params[:id])
       erb :"users/home"
@@ -99,29 +72,4 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET: /users/new
-  get "/users/allusers/new" do
-    erb :"users/addnewuser"
-   end
-
-  # POST: /users
- # post "/user/allusers" do
- #   redirect "/users"
-  #end
-
-
-  # GET: /users/5/edit
- # get "/users/:id/edit" do
-   # erb :"/users/edit.html"
- # end
-
-  # PATCH: /users/5
- # patch "/users/:id" do
-    #redirect "/users/:id"
- # end
-
-  # DELETE: /users/5/delete
-  #delete "/users/:id/delete" do
-   # redirect "/users"
-  #end
 end
