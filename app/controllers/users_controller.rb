@@ -83,12 +83,8 @@ class UsersController < ApplicationController
    end
   
   get '/users/:id' do
-    if logged_in?
       @user = User.find_by_id(params[:id])
       erb :"users/home"
-    else 
-      redirect "/login"
-    end
   end
   
   
