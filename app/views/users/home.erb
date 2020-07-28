@@ -1,5 +1,5 @@
 <h2>Hello, <%=@user.name%>.</h2>
-<%if @user.is_admin %>
+<%if @user.is_admin? %>
     <%usertype = "Admin"%>
 <%else%>
     <%usertype ="Teller"%>
@@ -10,7 +10,7 @@
 <a href="/">Sell An Item</a> <a href="/">Restock An Item</a>
 <a href="/">My Transactions</a><br><br>
 <h3>Management Actions</h3>
-<%if @user.is_admin%>
+<%if @user.is_admin?%>
 <a href="/">Manage Items Inventory</a>
 <a href="/">Manage Users</a>
 <a href="/">Transaction Reports</a>
