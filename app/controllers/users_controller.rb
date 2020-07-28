@@ -29,10 +29,10 @@ class UsersController < ApplicationController
    elsif logged_in?
      user = User.find_by(id: current_user.id)
      if user.is_admin
-       redirect "users/allusers/new"
+       #redirect "users/allusers/new"
      else 
        #showerror message
-       redirect "/users/#{user.id}"
+       #redirect "/users/#{user.id}"
      end
    else
      redirect "/login"
@@ -44,10 +44,10 @@ class UsersController < ApplicationController
      user.username = params[:username]
      user.name = params[:name]
      user.password = params[:password]
-     user.is_admin = params[:is_admin]
+     user.is_admin = true
      if user.save
         session[:user_id] = user.id
-        redirect "users/#{user.id}"
+        redirect "/users/#{user.id}"
      else 
        #show error messages
        redirect "/register"
