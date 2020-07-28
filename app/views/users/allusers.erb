@@ -1,0 +1,10 @@
+<h1>Current System Users</h1>
+<%@users.each do |user| %> 
+  <%if user.is_admin%> 
+    <%usertype = "Admin"%>
+  <%else%>
+    <%usertype = "Teller"%>
+  <%end%>
+  <h3><%=user.username%> <%=user.name%> <%=usertype%></h3>
+  <p><a href="/"><button>Edit</button></a> <a href="/"><button>Delete</button></a></p>
+<%end%>
