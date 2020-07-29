@@ -47,18 +47,25 @@ class UsersController < ApplicationController
   end
   
   patch "/users/:id" do
-     user = User.find_by(id: params[:id])
-     user.username = params[:username]
-     user.name = params[:name]
-     user.password = params[:password]
-     user.password_confirmation = params[:password_confirmation]
-     if params[:is_admin] =="true" || params[:is_admin]=="1"
-        user.is_admin = true
-    else 
-      user.is_admin =  false 
-    end 
-      
-     if user.save
+       user = User.find_by(id: params[:id])
+       user.username = params[:username]
+       user.name = params[:name]
+       user.password = params[:password]
+       user.password_confirmation = params[:password_confirmation]
+       if params[:is_admin] =="true" || params[:is_admin]=="1"
+            user.is_admin = true
+       else 
+          user.is_admin =  false 
+       end 
+      if user.save
+        if user.id == current_user.id 
+          redirect "/users/#{user.id}"
+        elsif user.is_admin 
+          redirect "/allusers"
+        end
+      else 
+        #show error 
+      end
   end
   
   get "/allusers" do
@@ -100,7 +107,6 @@ class UsersController < ApplicationController
         redirect "/users/#{user.id}"
      else 
        #show error messages
-       redirect "/register"
      end
    end
    
