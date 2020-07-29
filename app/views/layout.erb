@@ -8,6 +8,11 @@
   </head>
   <body>
     <h1>Your's Food And Wine Stock Management App</h1>
+    <div class="nav"> 
+      <%if logged_in?%>
+      <a href="/logout"><button>Log Out</button></a>
+      <%end%>
+    </div>
     <div class="wrapper">
         <%= yield %>
     </div>
