@@ -47,6 +47,7 @@ class UsersController < ApplicationController
   end
   
   patch "/users/:id" do
+       puts params
        user = User.find_by(id: params[:id])
        user.username = params[:username]
        user.name = params[:name]
