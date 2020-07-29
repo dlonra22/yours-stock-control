@@ -2,6 +2,8 @@
    <div class="col-md-8 col-md-offset-2">
     <h2>Edit My Profile</h2>
     <form method="post" action="/users/:id/">
+      <input type="hidden" value="patch" name="_method">
+      
       <p><label for="username">Username:</label>
       <input type="Text" name="username" id="username" value=<%=@user.username%>></p>
       
