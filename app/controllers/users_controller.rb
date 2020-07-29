@@ -19,8 +19,23 @@ class UsersController < ApplicationController
     else
       #show error message
       redirect "/login"
-      im
     end 
+  end
+
+  get '/users/:id' do
+      @user = User.find_by_id(params[:id])
+      erb :"users/home"
+  end
+  
+  get "/users/allusers" do
+    binding.pry
+    @user = User.find_by_id(current_user.id)
+    if @user.is_admin
+      @users = User.all
+      erb :"users/allusers" 
+    else
+      #show error
+    end
   end
   
   get "/register" do
@@ -56,20 +71,6 @@ class UsersController < ApplicationController
    end
    
 
-  get '/users/:id' do
-      @user = User.find_by_id(params[:id])
-      erb :"users/home"
-  end
   
-  
-  get "/users/allusers" do #only admins
-    @user = User.find_by_id(current_user.id)
-    if @user.is_admin
-      @users = User.all
-      erb :"users/allusers" 
-    else
-      #show error
-    end
-  end
 
 end
