@@ -46,7 +46,19 @@ class UsersController < ApplicationController
     end
   end
   
-  patch "/users/:id" do 
+  patch "/users/:id" do
+     user = User.find_by(id: params[:id])
+     user.username = params[:username]
+     user.name = params[:name]
+     user.password = params[:password]
+     user.password_confirmation = params[:password_confirmation]
+     if params[:is_admin] =="true" || params[:is_admin]=="1"
+        user.is_admin = true
+    else 
+      user.is_admin =  false 
+    end 
+      
+     if user.save
   end
   
   get "/allusers" do
@@ -81,6 +93,7 @@ class UsersController < ApplicationController
      user.username = params[:username]
      user.name = params[:name]
      user.password = params[:password]
+     user.password_confirmation = params[:password_confirmation]
      user.is_admin = true
      if user.save
         session[:user_id] = user.id
