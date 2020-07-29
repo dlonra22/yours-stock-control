@@ -29,6 +29,11 @@
     padding: 2.25%; /* 18px / 800px */
     width: 85%;
   }
+  
+  .nav {
+  float: right;
+  padding: 10px;
+}
 
   h1 {
     font-size: 36px;
