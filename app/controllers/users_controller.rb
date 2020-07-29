@@ -28,7 +28,6 @@ class UsersController < ApplicationController
   end
   
   get "/allusers" do
-    binding.pry
     @user = User.find_by_id(current_user.id)
     if @user.is_admin
       @users = User.all
