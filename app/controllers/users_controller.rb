@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       erb :"users/home"
   end
   
-  get "/users/allusers" do
+  get "/allusers" do
     binding.pry
     @user = User.find_by_id(current_user.id)
     if @user.is_admin
