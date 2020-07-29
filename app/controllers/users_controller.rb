@@ -28,7 +28,22 @@ class UsersController < ApplicationController
   end
   
   get '/users/:id/edit' do
-    @user = 
+    if logged_in?
+        @user = User.find_by(id: params[:id])
+        if @user
+          if current_user.id == params[:id]
+              erb :"users/editmyprofile"
+          elsif current_user.is_admin
+              erb :"users/edituser"
+          else 
+            #showerror non admin user cannot edit another users profile 
+          end 
+        else 
+          #show error that user cannot be found 
+        end 
+    else
+      redirect "/login"
+    end
   end
   
   get "/allusers" do
