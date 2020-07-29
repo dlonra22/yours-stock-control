@@ -27,6 +27,10 @@ class UsersController < ApplicationController
       erb :"users/home"
   end
   
+  get '/users/:id/edit' do
+    @user = 
+  end
+  
   get "/allusers" do
     @user = User.find_by_id(current_user.id)
     if @user.is_admin
