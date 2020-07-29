@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     if logged_in?
         @user = User.find_by(id: params[:id])
         if @user
-          if current_user.id == params[:id]
+          if current_user.id == @user.id
               erb :"users/editmyprofile"
           elsif current_user.is_admin
               erb :"users/edituser"

@@ -7,5 +7,5 @@
     <%usertype = "Teller"%>
   <%end%>
   <h3><%=user.username%> <%=user.name%> <%=usertype%></h3>
-  <p><a href="'/users/:id/edit'"><button>Edit</button></a> <a href="/"><button>Delete</button></a> <a href="/"><button>Home</button></a></p>
+  <p><a href="'/users/<%=user.id%>/edit'"><button>Edit</button></a> <a href="/"><button>Delete</button></a> <a href="/"><button>Home</button></a></p>
 <%end%>
