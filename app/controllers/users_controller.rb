@@ -111,6 +111,15 @@ class UsersController < ApplicationController
      end
    end
    
+  get "/allusers/new" do
+    erb :"users/addnewuser"
+   end
+
+  post "/allusers/:id" do
+   redirect "/allusers/:id"
+  end
+
+   
   get '/logout' do
     session.clear
     redirect '/'
