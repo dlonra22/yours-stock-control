@@ -1,5 +1,6 @@
 <h1>Current System Users</h1>
-<p><a href="/"><button>Create New User</button></a></p>
+<p><a href="/"><button>Create New User</button></a>      <a href="/"><button>Back To Home Page</button></a>
+</p>
 <%@users.each do |user| %> 
   <%if user.is_admin%> 
     <%usertype = "Admin"%>
@@ -9,3 +10,6 @@
   <h3><%=user.username%> <%=user.name%> <%=usertype%></h3>
   <p><a href="'/users/<%=user.id%>/edit'"><button>Edit</button></a> <a href="/"><button>Delete</button></a> <a href="/"><button>Home</button></a></p>
 <%end%>
+
+<p><a href="/"><button>Create New User</button></a>      <a href="/"><button>Back To Home Page</button></a>
+</p>
