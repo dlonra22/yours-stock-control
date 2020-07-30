@@ -79,6 +79,21 @@ get "/mytransactions" do
            redirect "/transactions/new"
          end
     end
+    
+    get "/mytransactions/:id"
+        if logged_in?
+          @transaction = Transaction.find_by(id: params[:id])
+          if @transaction.user_id == current_user.id 
+            erb :"transactions/usertransaction"
+          else 
+            #show error this transaction is for a diffect user 
+            redirect "/mytransactions"
+          end
+        else 
+          #show error please log in 
+          redirect "/login"
+        end 
+    end
            
             
         
