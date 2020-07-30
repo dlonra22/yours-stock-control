@@ -59,6 +59,11 @@ get "/mytransactions" do
               item.quantity -= trans_qty
             else
               #show error trans_qty is more than items in stock
+              redirect "/transactions/new"
+            end
+        elsif params[:category] == STOCK 
+              
+          
         
         
   end

@@ -12,7 +12,7 @@
   
   <label for="quantity">Quantity:</label> 
   <select name="quantity" id="quantity">
-    <% 21.times do |i|%>
+    <% 1.upto(20) do |i|%>
     <option value="<%=i%>"><%=i%></option>
     <%end%>
   </select>
