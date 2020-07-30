@@ -9,10 +9,12 @@
   <%end%>
   <%if user.id != current_user.id%>
   <h3><%=user.username%> <%=user.name%> <%=usertype%></h3>
-  <p><form action="/users/<%=user.id%>/edit" method="get">
-      <input type="submit" value="Edit" name="Submit" id="frm1_submit" />
-     </form>  <form action="/users/<%=user.id%>" method="post">
+  <div> <div><form action="/users/<%=user.id%>/edit" method="get">
+      <input type="submit" value="Edit" name="Submit" id="frm1_submit">
+     </form></div> <div><form action="/users/<%=user.id%>" method="post">
       <input id="_method" type="hidden" name="_method" value="delete">
-      <input type="submit" value="delete user"></form></p>
+      <input type="submit" value="delete user">
+     </form></div>
+  </div>
   <%end%>
 <%end%>
