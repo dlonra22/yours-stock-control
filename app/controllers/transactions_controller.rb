@@ -155,13 +155,9 @@ get "/mytransactions" do
 	elsif logged_in? 
 	    #show error admins only
 	    redirect "/users/#{current_user.id}"
-	        
-	  
-	  
-	  transaction.destroy 
-	  redirect "/alltransactions"
+	else
+	   #show please login 
 	end
-	
-	
+end
   
 end #end of controller
