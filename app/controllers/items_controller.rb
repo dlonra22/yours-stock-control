@@ -1,8 +1,12 @@
 class ItemsController < ApplicationController
 
   # GET: /users/items
-  get "/allitems" do
+  get "/items" do
     erb :"items/allitems"
+  end
+  
+  get "/items/:id" do 
+    erb :"items/showitem"
   end
 
 
