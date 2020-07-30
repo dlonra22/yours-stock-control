@@ -1,1 +1,27 @@
-<h2>Sale or Restock An item</h2>
+<h2>Sell or Restock An item</h2>
+<form method="post" action="/transactions">
+  <label for="user_id">User Id:</label>
+  <input type="text" name="item_id" id="item_id" list="items">
+  <datalist id="items">
+    <%@items_available.each do |item| %>
+    <option value="<%=item.name%>" data-value="<%=item.id%>">
+  </datalist>
+    <%end%>
+  <label for="user_id">User Id:</label>
+  <input type = "text" name="user_id" disabled id="user_id" value="<%=@user.id%>">
+  <input type = "hidden" name="user_id" id="user_id" value="<%=@user.id%>">
+  
+  <label for="quantity">Quantity:</label> 
+  <select name="quantity" id="quantity">
+    <% 21.times do |i|%>
+    <option value="<%=i%>">
+    <%end%>
+  </select>
+  
+  <label for="category">Action</label>
+  <select name="category" id="category">
+    <option value="Sale">Sell</option>
+    <option value="Restock">Stock</option>
+  </select>
+  <input type="submit" value="Submit">
+</form>
