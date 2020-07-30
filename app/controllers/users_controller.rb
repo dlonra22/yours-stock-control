@@ -181,47 +181,47 @@ class UsersController < ApplicationController
     end
   end 
 
-delete "users/:id" do
-	if logged_in?
-		user = user.find_by(id: params[:id])
-        if user 
-            if user.id == current_user.id
-              if user.is_admin
-				admins = []
-				User.all.each do |u| 
-					admins << u.name unless u.is_admin ==false
-				end
-               if admins.count < 2 
-                 #show error you are the only admin system needs at least one admin - to reset the app choose reset app instead in your management actions - or create another admin user
-                 redirect "/users/#{current_user.is}/edit"
-               else 
+  delete "/users/:id" do
+  	if logged_in?
+  		user = User.find_by(id: params[:id])
+          if user 
+              if user.id == current_user.id
+                if user.is_admin
+  				admins = []
+  				User.all.each do |u| 
+  					admins << u.name unless u.is_admin ==false
+  				end
+                 if admins.count < 2 
+                   #show error you are the only admin system needs at least one admin - to reset the app choose reset app instead in your management actions - or create another admin user
+                   redirect "/users/#{current_user.is}/edit"
+                 else 
+                   session.clear 
+                   user.destroy 
+                   #message you have successfully deleted your account 
+                   redirect "/"
+                 end 
+                else 
                  session.clear 
                  user.destroy 
                  #message you have successfully deleted your account 
-                 redirect "/"
-               end 
+                 redirect "/login"
+                end
+              elsif current_user.is_admin
+                user.destroy 
+                 #message you have successfully deleted user 
+                 redirect "/allusers"
               else 
-               session.clear 
-               user.destroy 
-               #message you have successfully deleted your account 
-               redirect "/login"
+                #show error only admins can delete other users 
+                redirect "/users/#{current_user.id}"
               end
-            elsif current_user.is_admin
-              user.destroy 
-               #message you have successfully deleted user 
-               redirect "/allusers"
-            else 
-              #show error only admins can delete other users 
-              redirect "/users/#{current_user.id}"
-            end
-        else 
-			#error user does not exist
-			redirect "/users/#{current_user.id}"
-		end
-    else 
-		#error please login 
-		redirect "/login"
-    end
-end
+          else 
+  			#error user does not exist
+  			redirect "/users/#{current_user.id}"
+  		end
+      else 
+  		#error please login 
+  		redirect "/login"
+      end
+  end
   
 end

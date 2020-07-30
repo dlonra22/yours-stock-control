@@ -1,5 +1,5 @@
 <h1>Other System Users</h1>
-<p><a href="/allusers/new"><button>Create New User</button></a>      <a href="/"><button>Back To Home Page</button></a>
+<p><a href="/allusers/new"><button>Create New User</button></a> <a href="/"><button>Back To Home Page</button></a>
 </p>
 <%@users.each do |user| %> 
   <%if user.is_admin%> 
@@ -9,10 +9,6 @@
   <%end%>
   <%if user.id != current_user.id%>
   <h3><%=user.username%> <%=user.name%> <%=usertype%></h3>
-  <p><a href="/users/<%=user.id%>/edit"><button>Edit</button></a> <form action="/users/<%=user.id%>" method="post">
-  <input id="_method" type="hidden" name="_method" value="delete"><input type="submit" value="delete"></form> <a href="/"><button>Home</button></a></p>
+  <p><a href="/users/<%=user.id%>/edit"><button>Edit</button></a><form action="/users/<%=user.id%>" method="post"><input id="_method" type="hidden" name="_method" value="delete"> <input type="submit" value="delete user"></form></p>
   <%end%>
 <%end%>
-
-<p><a href="/allusers/new"><button>Create New User</button></a>      <a href="/"><button>Back To Home Page</button></a>
-</p>
