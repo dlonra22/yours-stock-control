@@ -2,6 +2,7 @@ class TransactionsController < ApplicationController
   #transaction categories as constants
   SALE = "Sale" 
   STOCK = "Restock"
+  
 get "/mytransactions" do
     if logged_in?
       transactions = Transaction.all
@@ -15,21 +16,6 @@ get "/mytransactions" do
       redirect "/login"
     end
   end #end of get mytransactions
-  
-  get "/alltransactions" do
-    if logged_in?
-      if current_user.is_admin
-        @transactions = Transaction.all
-        erb :"transactions/alltransactions"
-      else 
-        #only admins 
-        redirect "/users/#{current_user.id}"
-      end
-    else 
-      # please login 
-      redirect "/login"
-    end
-  end #end of get alltransactions
   
   get "/mytransactions/new" do 
     if logged_in?
@@ -45,7 +31,7 @@ get "/mytransactions" do
       #please login 
       redirect"/login"
     end
-  end
+  end #end of mytransactions/new
   
   post "/mytransactions/new" do 
         item = Item.find_by(id: params[:item_id].to_i)
@@ -103,5 +89,51 @@ get "/mytransactions" do
       redirect "/login"
     end 
 	end
+	
+	# Exclusive Admin actions ******************************************************************************************
+	get "/alltransactions" do
+    if logged_in?
+      if current_user.is_admin
+        @transactions = Transaction.all
+        erb :"transactions/alltransactions"
+      else 
+        #only admins 
+        redirect "/users/#{current_user.id}"
+      end
+    else 
+      # please login 
+      redirect "/login"
+    end
+  end #end of get alltransactions
+  
+  
+	get "/alltransactions/:id" do
+    if logged_in?
+        @transaction = Transaction.find_by(id: params[:id])
+			if @transaction
+				  if @transaction.user_id == current_user.id 
+  					@item = Item.find_by(id: @transaction.item_id) # may need validating if item is no longer available
+  					@user = User.find_by(id: @transaction.user_id) # may need rethinking if users or items have been deleted
+  					
+					  erb :"transactions/usertransaction"
+				  else 
+  					#show error this transaction is for a diffect user 
+  					redirect "/mytransactions"
+				  end
+			else 
+			  #show error transaction does not exist 
+			  redirect "/mytransactions"
+			end
+    else 
+      #show error please log in 
+      redirect "/login"
+    end 
+	end
+	
+	delete "/alltransactions/:id" do 
+	 binding.pry
+	end
+	
+	
   
 end #end of controller
