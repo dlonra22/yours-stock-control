@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     if User.all.empty?
       #set error no users in system
       redirect "/register"
-    elsif logged_in
+    elsif logged_in?
       #set error you are already logged_in
       redirect "/users/#{current_user.id}"
     else
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       #set welcome message 
-      redirect "users/#{user.id}"
+      redirect "/users/#{user.id}"
     else
       #set error incorrect credentials 
       redirect "/login"
@@ -101,9 +101,10 @@ class UsersController < ApplicationController
     else 
       #show error need to login 
       redirect "/login"
+    end
   end
   
-  #register form for app initilization - when no users in the system - registers an initial admin user"
+     #register form for app initilization - when no users in the system - registers an initial admin user"
   get "/register" do
    if User.all.empty?
       erb :"users/register" 
@@ -146,7 +147,7 @@ class UsersController < ApplicationController
       #show error please login/register as an admin
       redirect "/login"
     end
-   end
+  end
 
   post "/allusers" do
     user = User.new 
@@ -168,7 +169,6 @@ class UsersController < ApplicationController
     end
   end
 
-   
   get '/logout' do
     if logged_in?
       #set message you have successfully logged out 
@@ -179,6 +179,7 @@ class UsersController < ApplicationController
       session.clear
       redirect '/'
     end
-  end
+  end 
+  
   
 end
