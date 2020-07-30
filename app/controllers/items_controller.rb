@@ -9,10 +9,8 @@ class ItemsController < ApplicationController
     erb :"items/showitem"
   end
 
-
-  # GET: /users/items/new only for admins
-  get "user/:id/items/new" do
-   # erb :"/items/new.html"
+  get "items/new" do
+   erb :"items/newitem"
   end
 
   # POST: users/items
