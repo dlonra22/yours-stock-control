@@ -2,6 +2,6 @@
 <p><a href="/"><button>Back To Home Page</button></a></p>
 <% @transactions.each do |t| %>
     <p><strong>Created_On: </strong><%=t.created_at%> <strong>Item:</strong> <%=item.name%> <strong>Qty: </strong><%=t.quantity%> <strong>Price: </strong><%=item.price%></p>
-<p><strong>By:</strong> <%=@user.name%> <strong>Value: </strong><%=t.value%></p>
-<strong>Value: </strong><%=t.value%>
+    <p><strong>By:</strong> <%=@user.name%> <strong>Value: </strong><%=t.value%></p>
+    <p></p><strong>Transaction Notes: </strong><%=t.transaction_notes%></p>
 <%end%>
