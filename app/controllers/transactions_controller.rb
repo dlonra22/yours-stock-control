@@ -62,6 +62,26 @@ get "/mytransactions" do
               redirect "/transactions/new"
             end
         elsif params[:category] == STOCK 
+              transaction.quantity = trans_qty
+              transaction.category = params[:category]
+              transaction.user_id = params[:user_id].to_i
+              transaction.item_id = item.id
+              item.quantity += trans_qty
+        else 
+          #show error no transactions of that type available 
+          redirect "/transactions/new"
+        end
+        if transaction.save && item.save
+           #show message transaction success
+           redirect "/mytransactions/:id"
+         else 
+           #show error transaction failed 
+           redirect "/transactions/new"
+         end
+    end
+           
+            
+        
               
           
         
