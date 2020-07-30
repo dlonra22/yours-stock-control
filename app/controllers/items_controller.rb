@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
 
   # GET: /users/items
-  get "/items" do
+  get "/allitems" do
     erb :"items/allitems"
   end
 
