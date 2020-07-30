@@ -29,4 +29,8 @@ get "/mytransactions" do
     end
   end #end of get alltransactions
   
+  get "/transactions/new" do 
+    erb :"transactions/new"
+  end
+  
 end #end of controller
