@@ -32,11 +32,7 @@ get "/mytransactions" do
   get "/transactions/new" do 
     if logged_in?
        @user = User.find_by(id: current_user.id)
-       items = Item.all
-       @items_available = [] 
-       items.each do |item| 
-         @items_available << item if item.quantity > 0
-       end
+       @items_available = Item.all
        if @items_available.count < 1 
          #no items in inventory 
          redirect "/users/#{current_user.id}"
@@ -47,6 +43,10 @@ get "/mytransactions" do
       #please login 
       redirect"/login"
     end
+  end
+  
+  post "/transactions/new" do 
+        binding.pry
   end
   
 end #end of controller
