@@ -31,7 +31,7 @@ get "/mytransactions" do
     end
   end #end of get alltransactions
   
-  get "/transactions/new" do 
+  get "/mytransactions/new" do 
     if logged_in?
        @user = User.find_by(id: current_user.id)
        @items_available = Item.all
@@ -47,7 +47,7 @@ get "/mytransactions" do
     end
   end
   
-  post "/transactions/new" do 
+  post "/mytransactions/new" do 
         item = Item.find_by(id: params[:item_id].to_i)
         trans_qty = params[:quantity].to_i
         if params[:category] == SALE 
@@ -59,7 +59,7 @@ get "/mytransactions" do
               item.quantity -= trans_qty
             else
               #show error trans_qty is more than items in stock
-              redirect "/transactions/new"
+              redirect "/mytransactions/new"
             end
         elsif params[:category] == STOCK 
               transaction.quantity = trans_qty
@@ -69,14 +69,14 @@ get "/mytransactions" do
               item.quantity += trans_qty
         else 
           #show error no transactions of that type available 
-          redirect "/transactions/new"
+          redirect "/mytransactions/new"
         end
         if transaction.save && item.save
            #show message transaction success
            redirect "/mytransactions/:id"
          else 
            #show error transaction failed 
-           redirect "/transactions/new"
+           redirect "/mytransactions/new"
          end
     end
     
