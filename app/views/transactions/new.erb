@@ -1,12 +1,11 @@
 <h2>Sell or Restock An item</h2>
-<form method="post" action="/transactions">
-  <label for="item_id">choose an item: </label>
-  <input type="text" name="item_id" id="item_id" list="items">
-  <datalist id="items">
+<form method="post" action="/transactions/new">
+  <label for="item_id">Choose an Item: </label>
+  <select id="item_id" name="item_id">
     <%@items_available.each do |item| %>
-    <option value="<%=item.name%>" data-value="<%=item.id%>">
+    <option value="<%=item.id%>"><%=item.name%></option>
     <%end%>
-  </datalist>
+  </select>
   <label for="user_id">User Id:</label>
   <input type = "text" name="user_id" disabled id="user_id" value="<%=@user.id%>">
   <input type = "hidden" name="user_id" id="user_id" value="<%=@user.id%>">
