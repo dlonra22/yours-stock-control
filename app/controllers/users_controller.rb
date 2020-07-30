@@ -95,24 +95,29 @@ class UsersController < ApplicationController
         @users = User.all
         erb :"users/allusers" 
       else
-        #show error
-        redirect ""
+        #show error only admins
+        redirect "/users/#{current_user.id}"
       end
+    else 
+      #show error need to login 
+      redirect "/login"
   end
   
+  #register form for app initilization - when no users in the system - registers an initial admin user"
   get "/register" do
-  #check is user is already logged in, if so redirect to users/admin/new
    if User.all.empty?
       erb :"users/register" 
    elsif logged_in?
      user = User.find_by(id: current_user.id)
      if user.is_admin
-       #redirect "users/allusers/new"
+        #show message you can create users here
+        redirect "/allusers/new"
      else 
-       #showerror message
-       #redirect "/users/#{user.id}"
+       #show error only admins can create new users
+       redirect "/users/#{user.id}"
      end
    else
+     # error please login as admin to add new users
      redirect "/login"
    end
   end
@@ -126,9 +131,11 @@ class UsersController < ApplicationController
      user.is_admin = true
      if user.save
         session[:user_id] = user.id
+        #show message you have successfully registered and logged in
         redirect "/users/#{user.id}"
      else 
        #show error messages
+       redirect "/register"
      end
    end
    
@@ -136,8 +143,8 @@ class UsersController < ApplicationController
     if logged_in? && current_user.is_admin
       erb :"users/addnewuser"
     else
-      #show error 
-      redirect "/"
+      #show error please login/register as an admin
+      redirect "/login"
     end
    end
 
@@ -163,8 +170,15 @@ class UsersController < ApplicationController
 
    
   get '/logout' do
-    session.clear
-    redirect '/'
+    if logged_in?
+      #set message you have successfully logged out 
+      session.clear
+      redirect '/'
+    else 
+      #set message - you are not logged in/ your session has timed out
+      session.clear
+      redirect '/'
+    end
   end
 
   
