@@ -1,2 +1,2 @@
 <h2><%=@transaction.created_at%> <%=@transaction.id%> Item: <%=@item.name%> Qty: <%=@transaction.quantity%> Price: <%=item.price%></h2>
-<p>By: <%=@user.name=%> Value: <%= @transaction.quantity.t_f * item.price
+<p>By: <%=@user.name=%> Value: <%= @transaction.quantity.to_f * item.price%></p>
