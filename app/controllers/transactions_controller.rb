@@ -32,7 +32,7 @@ get "/mytransactions" do
   get "/transactions/new" do 
     if logged_in?
        @user = User.find_by(id: current_user.id)
-       items = Items.all
+       items = Item.all
        @items_available = [] 
        items.each do |item| 
          @items_available << item if item.quantity > 0
