@@ -3,8 +3,10 @@ class UsersController < ApplicationController
   get "/login" do
     #show error if already logged in
     if User.all.empty?
+      #set error no users in system
       redirect "/register"
-    elsif logged_in?
+    elsif logged_in
+      #set error you are already logged_in
       redirect "/users/#{current_user.id}"
     else
       erb :"users/login"
@@ -15,21 +17,26 @@ class UsersController < ApplicationController
     user = User.find_by(username: params[:username])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
+      #set welcome message 
       redirect "users/#{user.id}"
     else
-      #show error message
+      #set error incorrect credentials 
       redirect "/login"
     end 
   end
 
   get '/users/:id' do
     if logged_in?
-      @user = User.find_by_id(params[:id])
-      if @user.id == current_user.id
+      @user = User.find_by(id: params[:id])
+      if @user && (@user.id == current_user.id)
         erb :"users/home"
-      else 
-        #showerror
+      else
+        #set error you can only access your own home page
+        redirect "/users/#{current_user.id}"
       end
+    else 
+      #set error please login first
+      redirect "/login"
     end
   end
   
@@ -42,12 +49,15 @@ class UsersController < ApplicationController
           elsif current_user.is_admin
               erb :"users/edituser"
           else 
-            #showerror non admin user cannot edit another users profile 
+            #showerror non admin user cannot edit another users profile
+            redirect "/users/#{current_user.id}"
           end 
         else 
           #show error that user cannot be found 
+           redirect "/users/#{current_user.id}"
         end 
     else
+      #set error not logged in
       redirect "/login"
     end
   end
@@ -65,26 +75,29 @@ class UsersController < ApplicationController
           user.is_admin =  false 
        end 
       if user.save
-        puts " I am saved !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
         if user.id == current_user.id 
+          #set message successfully updated your profile
           redirect "/users/#{user.id}"
         elsif current_user.is_admin 
+          #set message you have successfully updated username"
           redirect "/allusers"
         end
       else 
-        puts "its an error???????????????????????????????????????????????????"
-        #show error 
+        #set error cannot update 
+        redirect "/users/#{params[:id]}/edit"
       end
   end
   
   get "/allusers" do
-    @user = User.find_by_id(current_user.id)
-    if @user.is_admin
-      @users = User.all
-      erb :"users/allusers" 
-    else
-      #show error
-    end
+    if logged_in?
+      @user = User.find_by_id(current_user.id)
+      if @user.is_admin
+        @users = User.all
+        erb :"users/allusers" 
+      else
+        #show error
+        redirect ""
+      end
   end
   
   get "/register" do
