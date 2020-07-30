@@ -155,10 +155,10 @@ class UsersController < ApplicationController
     user.name = params[:name]
     user.password = params[:password]
     user.password_confirmation = params[:password_confirmation]
-    if params[:is_admin] =="true" || params[:is_admin]=="1"
-        user.is_admin = true
-    else 
-        user.is_admin =  false 
+    if params[:is_admin] =="true" || params[:is_admin]=="1" || params[:is_admin] =="on"
+            user.is_admin = true
+       else 
+          user.is_admin =  false 
     end 
     if user.save
        #show success message
