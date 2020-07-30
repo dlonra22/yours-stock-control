@@ -117,7 +117,7 @@ get "/mytransactions" do
 					  erb :"transactions/usertransaction"
   			else 
   			  #show error transaction does not exist 
-  			  redirect "/mytransactions"
+  			  redirect "/alltransactions"
   			end
   		else 
   		  #show error only admins allowed on this page
