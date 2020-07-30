@@ -23,9 +23,10 @@
       <p><label for="is_admin">Is an Admin?:</label> <%=@user.is_admin%>
       <input name="is_admin" id="is_admin" type="checkbox" <%=chkbox%>></input>
       </p>
-      <p><input type="submit" value="Update"> <form action="/users/<%=@user.id%>" method="post">
-  <input id="_method" type="hidden" name="_method" value="delete"><input type="submit" value="Delete"></form></p>
+      <p><input type="submit" value="Save" id="update"> </p>
       </form>
+      <p><form action="/users/<%=@user.id%>" method="post">
+      <input id="_method" type="hidden" name="_method" value="delete"><input type="submit" value="Delete User" id="delete"></form></p>
    <p> <a href="/allusers"><button>Back To All Users</button></a></p>
     
 </div>

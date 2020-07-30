@@ -193,7 +193,7 @@ class UsersController < ApplicationController
   				end
                  if admins.count < 2 
                    #show error you are the only admin system needs at least one admin - to reset the app choose reset app instead in your management actions - or create another admin user
-                   redirect "/users/#{current_user.is}/edit"
+                   redirect "/users/#{current_user.id}/edit"
                  else 
                    session.clear 
                    user.destroy 
