@@ -83,12 +83,19 @@ get "/mytransactions" do
     get "/mytransactions/:id"
         if logged_in?
           @transaction = Transaction.find_by(id: params[:id])
-          if @transaction.user_id == current_user.id 
-            erb :"transactions/usertransaction"
-          else 
-            #show error this transaction is for a diffect user 
-            redirect "/mytransactions"
-          end
+          if @transaction
+              if @transaction.user_id == current_user.id 
+                @item = Item.find_by(id: @transaction.item_id) # may need validating if item is no longer available
+                @user = User.find_by(id: @transaction.user_id) # may need rethinking if users or items have been deleted
+                erb :"transactions/usertransaction"
+              else 
+                #show error this transaction is for a diffect user 
+                redirect "/mytransactions"
+              end
+            else 
+              #show error transaction does not exist 
+              redirect "/mytransactions"
+            end
         else 
           #show error please log in 
           redirect "/login"
