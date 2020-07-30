@@ -130,8 +130,32 @@ get "/mytransactions" do
 	end
 	
 	delete "/alltransactions/:id" do 
+	 if logged_in? && current_user.is_admin
 	  transaction = Transaction.find_by(id: params[:id])
-	  
+	  if transaction
+	    item = Item.find_by(transaction.item_id)
+	    if transaction.category == SALE 
+	      if item #readjusts stock value by transaction quantiy if item still exists
+	        item.quantity += transaction.quantity
+	        item.save
+	      end
+	    else
+	      if item #readjusts stock value by transaction quantiy if item still exists
+	        item.quantity -= transaction.quantity
+	        item.save
+	      end
+	    end
+	    transaction.destroy 
+	    #show message transaction deleted and stock levels adjusted
+	    redirect "/alltransactions"
+	  else 
+	    #show error transaction does not exist 
+	    redirect "/alltransactions"
+	  end
+	elsif logged_in? 
+	    #show error admins only
+	    redirect "/users/#{current_user.id}"
+	        
 	  
 	  
 	  transaction.destroy 
