@@ -2,4 +2,6 @@
 <p><a href="/"><button>Back To Home Page</button></a></p>
 <% @user_trans.each do |t| %>
     <h4><%=t.id%> <%=t.created_at%> <%=t.item_id%> <%=t.user_id%> <%=t.quantity%> <%=t.category%> Item Price:item.price Value: transaction qty * item price </h4>
+    <h2>Created_On: <%=t.created_at%> Item: <%=t.name%> Qty: <%=t.quantity%> Price: <%=@item.price%></h2>
+<p>By: <%=@user.name%> Value: <%=t.quantity.to_f * @item.price%></p>
 <%end%>

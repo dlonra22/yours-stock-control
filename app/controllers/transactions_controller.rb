@@ -50,6 +50,7 @@ get "/mytransactions" do
   post "/mytransactions/new" do 
         item = Item.find_by(id: params[:item_id].to_i)
         trans_qty = params[:quantity].to_i
+        transaction = Transaction.new
         if params[:category] == SALE 
            if item.quantity >= trans_qty
               transaction.quantity = trans_qty
@@ -87,6 +88,7 @@ get "/mytransactions" do
 				  if @transaction.user_id == current_user.id 
   					@item = Item.find_by(id: @transaction.item_id) # may need validating if item is no longer available
   					@user = User.find_by(id: @transaction.user_id) # may need rethinking if users or items have been deleted
+  					
 					  erb :"transactions/usertransaction"
 				  else 
   					#show error this transaction is for a diffect user 
