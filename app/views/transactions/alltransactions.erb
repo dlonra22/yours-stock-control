@@ -1,5 +1,7 @@
 <h2>All Transactions</h2>
 <p><a href="/"><button>Back To Home Page</button></a></p>
 <% @transactions.each do |t| %>
-    <h4><%=t.id%> <%=t.created_at%> <%=t.item_id%> <%=t.user_id%> <%=t.quantity%> <%=t.category%> Item Price:item.price Value: transaction qty * item price </h4>
+    <p><strong>Created_On: </strong><%=t.created_at%> <strong>Item:</strong> <%=item.name%> <strong>Qty: </strong><%=t.quantity%> <strong>Price: </strong><%=item.price%></p>
+<p><strong>By:</strong> <%=@user.name%> <strong>Value: </strong><%=t.value%></p>
+<strong>Value: </strong><%=t.value%>
 <%end%>

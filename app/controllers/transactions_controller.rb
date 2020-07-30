@@ -10,6 +10,7 @@ get "/mytransactions" do
       transactions.each do |t| 
         @user_trans << t if t.user_id == current_user.id
       end
+      @user = User.find_by(:id current_user.id)
       erb :"transactions/mytransactions"
     else 
       # please login 
