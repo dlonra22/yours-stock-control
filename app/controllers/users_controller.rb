@@ -53,18 +53,20 @@ class UsersController < ApplicationController
        user.name = params[:name]
        user.password = params[:password]
        user.password_confirmation = params[:password_confirmation]
-       if params[:is_admin] =="true" || params[:is_admin]=="1"
+       if params[:is_admin] =="true" || params[:is_admin]=="1" || params[:is_admin] =="on"
             user.is_admin = true
        else 
           user.is_admin =  false 
        end 
       if user.save
+        puts " I am saved !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
         if user.id == current_user.id 
           redirect "/users/#{user.id}"
-        elsif user.is_admin 
+        elsif current_user.is_admin 
           redirect "/allusers"
         end
       else 
+        puts "its an error???????????????????????????????????????????????????"
         #show error 
       end
   end

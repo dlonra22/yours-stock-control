@@ -5,25 +5,24 @@
       <input type="hidden" value="patch" name="_method">
       
       <p><label for="username">Username:</label>
-      <input type="Text" name="username" id="username" value=<%=@user.username%>></p>
+      <input type="Text" name="username" id="username" value="<%=@user.username%>"></p>
       
       <p><label for="name">Full Name:</label>
-      <input type="Text" name="name" id="name"  value=<%=@user.name%> ></p>
+      <input type="Text" name="name" id="name"  value="<%=@user.name%>" ></p>
       
       <p><label for="password">Password:</label>
-      <input type="password" name="password" id="password"  ></p>
+      <input type="password" name="password" id="password"></p>
       
-      <p><label for="password_confirmation">Confirm Your Password:</label>
-      <input type="password" name="password_confirmation" id="password_confirmation"  default="Confirm if new password above" ></p>
-    
-      <p><label for="is_admin">Is an Admin?:</label>
-      <input name="is_admin" id="is_admin" type="checkbox" disabled checked="<%=@user.is_admin%>">/>
+      <p><label for="password_confirmation">Confirm Password:</label>
+      <input type="password" name="password_confirmation" id="password_confirmation"></input></p>
       <%if @user.is_admin%>
-          <%val = 1%>
+      <% chkbox = "checked"%>
       <%else%>
-          <%val = 0%>
+        <%chkbox = ""%>
       <%end%>
-      <input type="hidden" name="is_admin" id="is_admin" value="<%=val%>"/></p>
+      <p><label for="is_admin">Is an Admin?:</label> <%=@user.is_admin%>
+      <input name="is_admin" id="is_admin" type="checkbox" chkbox></input>
+      </p>
       <p><input type="submit" value="Update"></p>
       </form>
    <p> <a href="/"><button>Back To Home Page</button></a></p>
