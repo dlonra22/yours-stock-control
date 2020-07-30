@@ -112,7 +112,11 @@ class UsersController < ApplicationController
    end
    
   get "/allusers/new" do
-    erb :"users/addnewuser"
+    if logged_in && current_user.is_admin
+      erb :"users/addnewuser"
+    else 
+      #show error 
+    end
    end
 
   post "/allusers/:id" do
