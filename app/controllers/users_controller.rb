@@ -23,13 +23,14 @@ class UsersController < ApplicationController
   end
 
   get '/users/:id' do
-    if logged_in
+    if logged_in?
       @user = User.find_by_id(params[:id])
       if @user.id == current_user.id
         erb :"users/home"
       else 
         #showerror
       end
+    end
   end
   
   get '/users/:id/edit' do
