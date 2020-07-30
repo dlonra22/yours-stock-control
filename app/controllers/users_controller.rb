@@ -112,15 +112,32 @@ class UsersController < ApplicationController
    end
    
   get "/allusers/new" do
-    if logged_in && current_user.is_admin
+    if logged_in? && current_user.is_admin
       erb :"users/addnewuser"
-    else 
+    else
       #show error 
+      redirect "/"
     end
    end
 
-  post "/allusers/:id" do
-   redirect "/allusers/:id"
+  post "/allusers" do
+    user = User.new 
+    user.username = params[:username]
+    user.name = params[:name]
+    user.password = params[:password]
+    user.password_confirmation = params[:password_confirmation]
+    if params[:is_admin] =="true" || params[:is_admin]=="1"
+        user.is_admin = true
+    else 
+        user.is_admin =  false 
+    end 
+    if user.save
+       #show success message
+       redirect "/allusers"
+    else
+      #show error 
+      redirect "/allusers/new"
+    end
   end
 
    
