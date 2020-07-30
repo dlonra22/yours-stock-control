@@ -1,5 +1,7 @@
 class TransactionsController < ApplicationController
-
+  #transaction categories as constants
+  SALE = "Sale" 
+  STOCK = "Restock"
 get "/mytransactions" do
     if logged_in?
       transactions = Transaction.all
@@ -46,7 +48,19 @@ get "/mytransactions" do
   end
   
   post "/transactions/new" do 
-        binding.pry
+        item = Item.find_by(id: params[:item_id].to_i)
+        trans_qty = params[:quantity].to_i
+        if params[:category] == SALE 
+           if item.quantity >= trans_qty
+              transaction.quantity = trans_qty
+              transaction.category = params[:category]
+              transaction.user_id = params[:user_id].to_i
+              transaction.item_id = item.id
+              item.quantity -= trans_qty
+            else
+              #show error trans_qty is more than items in stock
+        
+        
   end
   
 end #end of controller
