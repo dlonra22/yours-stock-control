@@ -93,7 +93,7 @@ class UsersController < ApplicationController
         end
       else 
         #set error cannot update 
-        flash[:error] ="There were update errors. Please try again"
+        flash[:error] ="There were update errors.#{user.errors.full_messages.to_sentence}"
         redirect "/users/#{params[:id]}/edit"
       end
   end
@@ -152,7 +152,7 @@ class UsersController < ApplicationController
         redirect "/users/#{user.id}"
      else 
        #show error messages
-       flash[:error] = "There were some validation errors please ensure your passwords match and 6 or more characters. Ensure all info is complete"
+       flash[:error] = "There were some validation errors: #{user.errors.full_messages.to_sentence}"
        redirect "/register"
      end
    end
@@ -184,7 +184,7 @@ class UsersController < ApplicationController
        redirect "/allusers"
     else
       #show error 
-      flash[:error] ="There were some validation errors please try again"
+      flash[:error] ="There were some validatio:#{user.errors.full_messages.to_sentence}"
       redirect "/allusers/new"
     end
   end
