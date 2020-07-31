@@ -37,7 +37,7 @@ class ItemsController < ApplicationController
   end
   
   post "/items/new" do 
-    if logged_in && current_user.is_admin
+    if logged_in? && current_user.is_admin
         item = Item.new
         item.name = params[:name]
         item.description = params[:description]
