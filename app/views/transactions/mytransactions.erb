@@ -1,5 +1,5 @@
 <h2>My Transactions</h2>
-<p><a href="/users/<%current_user.id%>"><button>Back To Home Page</button></a></p>
+<p><a href="/users/<%=current_user.id%>"><button>Back To Home Page</button></a></p>
 <% @user_trans.each do |t| %>
 <p><a href="/mytransactions/<%=t.id%>"><button>Show Transaction</button></a></p>
 <p><strong>Created_On: </strong><%=t.created_at%> <strong>Qty: </strong><%=t.quantity%></p>
