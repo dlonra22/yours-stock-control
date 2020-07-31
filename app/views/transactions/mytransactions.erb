@@ -1,8 +1,14 @@
 <h2>My Transactions</h2>
 <p><a href="/users/<%=current_user.id%>"><button>Back To Home Page</button></a></p>
 <% @user_trans.each do |t| %>
+<% item = Item.find_by(id: t.item_id)%>
 <p><a href="/mytransactions/<%=t.id%>"><button>Show Transaction</button></a></p>
+<%if item %>
+  <p><strong>Item:</strong><%=item.name%> <strong>Price: </strong><%=item.price%></p>
+<%end%>
 <h4><%=t.category%> Action    Id: <%=t.id%> </h4>
 <p><strong>Created_On: </strong><%=t.created_at%> <strong>Qty: </strong><%=t.quantity%></p>
 <p><strong>Value: </strong><%=t.value%></p>
+<p><%if current_user.is_admin%><form action="/alltransactions/<%=@transaction.id%>" method="post">
+      <input id="_method" type="hidden" name="_method" value="delete"><input type="submit" value="Delete Transaction" id="delete"></form><%end%></p>
 <%end%>
