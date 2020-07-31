@@ -14,4 +14,6 @@
 <p><strong>Qty: </strong><%=@transaction.quantity%> <strong>Value: </strong><%=@transaction.value%></p>
 <p><strong>Transaction Notes: </strong><%=@transaction.transaction_notes%></p>
 <p><strong>Created At: </strong><%=@transaction.created_at%></p>
+<p><%if current_user.is_admin%><form action="/alltransactions/<%=@transaction.id%>" method="post">
+      <input id="_method" type="hidden" name="_method" value="delete"><input type="submit" value="Delete Transaction" id="delete"></form><%end%></p>
 
