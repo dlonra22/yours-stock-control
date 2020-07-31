@@ -1,1 +1,7 @@
-<h2>Here23232332 is the item</h2>
+<h2>Product View</h2>
+<p><strong><%=@item.name %> </strong>£ <%=@item.price%> Id: <%=@item.id%></p>
+<%if item.qty < item.restock_leve %> 
+<text color = "red"> Item needs restocking</text>
+<%end%>
+
+<p>@item.description</p>  
