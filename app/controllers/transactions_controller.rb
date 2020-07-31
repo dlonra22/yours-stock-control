@@ -45,6 +45,8 @@ get "/mytransactions" do
               transaction.user_id = params[:user_id].to_i
               transaction.item_id = item.id
               item.quantity -= trans_qty
+              transaction.tr_value = trans_qty.to_f * item.price
+              transaction.transaction_notes = "Item: #{item.name} Sold By: #{current_user.name} @: #{item.price} On: #{transaction.created_at}"
             else
               #show error trans_qty is more than items in stock
               redirect "/mytransactions/new"
@@ -55,6 +57,7 @@ get "/mytransactions" do
               transaction.user_id = params[:user_id].to_i
               transaction.item_id = item.id
               item.quantity += trans_qty
+              transaction.transaction_notes = "Item: #{item.name} * #{trans_qty} Restocked By: #{current_user.name} @: #{item.price} On: #{transaction.created_at}"
         else 
           #show error no transactions of that type available 
           redirect "/mytransactions/new"
