@@ -3,19 +3,19 @@
 
 <form method="post" action="/items/<%@item.id%>">
   <p><label for="name">Item Name:</label>
-      <input type="Text" name="name"></p>
+      <input type="Text" name="name" id="name" value="<%=@item.name%>"></p>
       
   <p><label for="description">Item Description:</label>
-      <input type="Text" name="description" id="description"></p>
+      <input type="Text" name="description" id="description" value="<%=@item.description%>"></p>
       
   <p><label for="price">Price: £</label>
-  <input type="number" name="price" id="price" step="0.01" min="0">
+  <input type="number" name="price" id="price" step="0.01" min="0" value="<%=@item.price%>">
   
   <p><label for="quantity">Quantity:</label>
-<input type="number" name="quantity" id="quantity" step="1" min="0">
+<input type="number" name="quantity" id="quantity" step="1" min="0" value="<%=@item.quantity%>">
 
  <p><label for="restock_level">Restock Level:</label>
-  <input type="number" name="restock_level" id="restock_level" step="1" min="0">
+  <input type="number" name="restock_level" id="restock_level" step="1" min="0" value="<%=@item.restock_level%>">
   
 <input type="submit" value="Submit">
 </form>
