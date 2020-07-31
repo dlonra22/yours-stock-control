@@ -1,10 +1,8 @@
 <h2>Items Inventory</h2>
-<%if current_user.is_admin%><a href="/items/new"><button>Add New Item To Inventory</button></a><%end%> <a href="/"><button>Back To Home Page</button></a>
+<p><a href="/"><button>Back To Home Page</button></a> <%if current_user.is_admin%><a href="/items/new"><button>Add New Item To Inventory</button></a><%end%>  <a href="/mytransactions/new"><button>Restock/Sell</button></a></p>
 <%@items.each do |item|%>
-<h4><%=item.name%></h4>
-<p><%=item.price%></p>
-<p><%=item.quantity%></p>
-<%if item.quantity < item.restock_leve%>
-<p style="color:blue">This item needs restocking</p>
+<a href="/items/<%=item.id%>"><p><strong><%=item.name%></strong> <strong>£</strong><%=item.price%> <strong>In Stock </strong><%=item.quantity%>
+<%if item.quantity < item.restock_level%>
+<text style="color:blue">This item needs restocking</text></p></a>
 <%end%>
 <%end%>
