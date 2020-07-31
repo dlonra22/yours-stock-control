@@ -1,7 +1,8 @@
 <h2>Edit Item</h2>
 <p><a href="/items"><button>Back To Items</button></a> <a href="/"><button>Back To Home</button></a></p>
 
-<form method="post" action="/items/<%@item.id%>">
+<form method="post" action="/items/<%=@item.id%>">
+  <input type="hidden" value="patch" name="_method">
   <p><label for="name">Item Name:</label>
       <input type="Text" name="name" id="name" value="<%=@item.name%>"></p>
       
@@ -19,3 +20,7 @@
   
 <input type="submit" value="Submit">
 </form>
+<%if current_user.is_admin%>
+<a><form action="/items/<%=@item.id%>" method="post">
+      <input id="_method" type="hidden" name="_method" value="delete"><input type="submit" value="Delete Item" id="delete">
+</form><%end%></p></a>
