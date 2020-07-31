@@ -1,5 +1,5 @@
-<p><strong>Item:</strong><%=@item.name%> <%=itemname%> <strong>Price: </strong><%=itemprice%></p>
-    <p><strong>By:</strong> <%=@user.name%> <strong>Value: </strong><%=t.value%></p>
-<h2><%=@transaction.created_at%> <%=@transaction.id%> Item:  Qty: <%=@transaction.quantity%> Price: <%=@item.price%></h2>
+<p><strong>Item:</strong><%=@item.name%> <strong>Price: </strong><%=@item.price%></p>
+<p><strong>By:</strong> <%=@user.name%> 
+<p><strong>Qty: </strong><%=@transaction.quantity%> <strong>Value: </strong><%=@transaction.value%></p>
 <p>By: <%=@user.name%> Value: <%=@transaction.quantity.to_f * @item.price%></p>
 <p><strong>Transaction Notes: </strong><%=@transaction.transaction_notes%></p>
