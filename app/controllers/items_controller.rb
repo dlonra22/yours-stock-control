@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
         @items = Item.all 
         erb :"items/allitems"
       else 
-        #please login 
+        flash[:error] = "please login"
       end
   end
   

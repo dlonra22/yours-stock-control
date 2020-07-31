@@ -1,2 +1,10 @@
 <h2>Items Inventory</h2>
-<a href="/items/new"><button>Add New Item To Inventory</button></a> <a href="/"><button>Back To Home Page</button></a>
+<%if current_user.is_admin%><a href="/items/new"><button>Add New Item To Inventory</button></a><%end%> <a href="/"><button>Back To Home Page</button></a>
+<%@items.each do |item|%>
+<h4><%=item.name%></h4>
+<p><%=item.price%></p>
+<p><%=item.quantity%></p>
+<%if item.quantity < item.restock_leve%>
+<p style="color:blue">This item needs restocking</p>
+<%end%>
+<%end%>
