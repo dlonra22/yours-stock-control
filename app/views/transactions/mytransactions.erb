@@ -1,5 +1,5 @@
 <h2>My Transactions</h2>
-<p><a href="/users/<%=current_user.id%>"><button>Back To Home Page</button></a></p>
+<p><a href="/users/<%=current_user.id%>"><button>Back To Home Page</button></a> <a href="/mytransactions/new"><button>New Transaction</button></a></p>
 <% @user_trans.each do |t| %>
 <h4><%=t.category%> Action    Id: <%=t.id%> </h4>
 <p><a href="/mytransactions/<%=t.id%>">Show Transaction</a></p>
