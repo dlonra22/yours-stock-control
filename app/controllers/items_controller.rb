@@ -28,6 +28,7 @@ class ItemsController < ApplicationController
           erb :"items/showitem"
         else 
           #item does not exist or deleted 
+          redirect "/items"
         end
       else 
         #please login 
@@ -63,16 +64,49 @@ class ItemsController < ApplicationController
   get "/items/:id/edit" do
     if logged_in? && current_user.is_admin
        @item = Item.find_by(id: params[:id])
-       if @item 
+      if @item 
           erb :"items/showitem"
-        else 
-          #item does not exist or deleted 
-        end
       else 
-        #please login 
-        redirect "/login"
+          #item does not exist or deleted 
+          redirect "/items"
       end
+    elsif logged_in?
+        #admins only 
+        redirect "/users/#{current_user.id}"
+    else 
+        #please login
+        redirect "/login"
+    end
   end
+  
+  patch "/items/:id" do 
+    if logged_in? && current_user.is_admin
+       item = Item.find_by(id: params[:id])
+      if item 
+        item.name = params[:name]
+        item.description = params[:description]
+        item.price = params[:price]
+        item.quantity = params[:quantity]
+        item.restock_level = params[:restock_level]
+        if item.save 
+          #your item has been updated 
+          redirect "/items/#{item.id}"
+        else 
+          #error please ensure details entered correctly 
+          redirect "/items/#{item.id}/edit"
+        end 
+      else
+        #cannot find that item id 
+        redirect "/items"
+      end
+    elsif logged_in?
+        #only admins can edit items 
+        redirect "/items" 
+    else 
+      #please login 
+    end
+  end
+    
   
   
 end
