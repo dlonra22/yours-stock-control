@@ -46,17 +46,17 @@ class ItemsController < ApplicationController
         item.restock_level = params[:restock_level]
         
         if item.save 
-          #show your new item has been saved
+          flash[:message]="your item has been saved"
           redirect "/items/#{item.id}"
         else 
-          #show error 
+          flash[:error]="validation errors: #{item.error.full_message.to_sentence}"
           redirect "/items/new"
         end 
     elsif logged_in?
-        #admins only 
+        flash[:error]="Admins only"
         redirect "/users/#{current_user.id}"
     else 
-        #please login
+       flash[:error]="please log in"
         redirect "/login"
     end
   end 
@@ -92,15 +92,15 @@ class ItemsController < ApplicationController
           #your item has been updated 
           redirect "/items/#{item.id}"
         else 
-          #error please ensure details entered correctly 
+          flash[:error]="#{item.error.full_message.to_sentence}" 
           redirect "/items/#{item.id}/edit"
         end 
       else
-        #cannot find that item id 
+         flash[:error]="cannot find that item id"
         redirect "/items"
       end
     elsif logged_in?
-        #only admins can edit items 
+         flash[:error]="only admins can edit items" 
         redirect "/items" 
     else 
       #please login 
@@ -112,16 +112,16 @@ class ItemsController < ApplicationController
        item = Item.find_by(id: params[:id])
        if item 
          item.destroy 
-         #show item successfully deleted 
+          flash[:message]="item successfully deleted"
          redirect "/items"
        else 
-         #cannot find item to delete 
+        flash[:error]="cannot find item to delete"
        end 
     elsif logged_in? 
-      #only admins can delete items 
+      flash[:error]= "only admins can delete items"
       redirect "/items"
     else 
-      #please login 
+      flash[:error]="please login"
       redirect "/login"
     end
   end
