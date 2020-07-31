@@ -69,12 +69,10 @@ get "/mytransactions" do
            redirect "/mytransactions/:id"
          else 
           flash[:error] = "transaction failed: #{transaction.errors.full_messages.to_sentence}: #{item.errors.full_messages.to_sentence} " 
-           puts "failed"
-              binding.pry
            redirect "/mytransactions/new"
          end
       else 
-        #please login 
+        flash[:error] ="please login" 
         redirect "/login"
       end
     end
@@ -88,15 +86,15 @@ get "/mytransactions" do
   					@user = User.find_by(id: @transaction.user_id) 
 					  erb :"transactions/usertransaction"
 				  else 
-  					#show error this transaction is for a diffect user 
+  					flash[:error] ="this transaction is for a diffect user" 
   					redirect "/mytransactions"
 				  end
 			else 
-			  #show error transaction does not exist 
+			  flash[:error]="transaction does not exist" 
 			  redirect "/mytransactions"
 			end
     else 
-      #show error please log in 
+     flash[:error]= "please log in" 
       redirect "/login"
     end 
 	end
@@ -108,11 +106,11 @@ get "/mytransactions" do
         @transactions = Transaction.all
         erb :"transactions/alltransactions"
       else 
-        #only admins 
+        flash[:error] = "only admins have access to that page" 
         redirect "/users/#{current_user.id}"
       end
     else 
-      # please login 
+      flash[:error] = "please login" 
       redirect "/login"
     end
   end #end of get alltransactions
@@ -127,15 +125,15 @@ get "/mytransactions" do
   					@user = User.find_by(id: @transaction.user_id) # may need rethinking if users or items have been deleted
 					  erb :"transactions/usertransaction"
   			else 
-  			  #show error transaction does not exist 
+  			  flash[:error] = "transaction does not exist" 
   			  redirect "/alltransactions"
   			end
   		else 
-  		  #show error only admins allowed on this page
+  		  flash[:error]="only admins allowed on this page"
   		  redirect "/users/#{current_user.id}"
   		end
     else 
-      #show error please log in 
+      flash[:error]="please log in" 
       redirect "/login"
     end 
 	end
