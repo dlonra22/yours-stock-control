@@ -3,10 +3,10 @@ class UsersController < ApplicationController
   get "/login" do
     #show error if already logged in
     if User.all.empty?
-      #set error no users in system
+      flash[:error] = "No users in database please do initial registration"
       redirect "/register"
     elsif logged_in?
-      #set error you are already logged_in
+      flash[:error] = "Already logged in!"
       redirect "/users/#{current_user.id}"
     else
       erb :"users/login"
@@ -18,9 +18,11 @@ class UsersController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       #set welcome message 
+      flash[:message] = "Welcome Back"
       redirect "/users/#{user.id}"
     else
       #set error incorrect credentials 
+      flash[:error] = "Invalid credentials"
       redirect "/login"
     end 
   end
@@ -32,10 +34,12 @@ class UsersController < ApplicationController
         erb :"users/home"
       else
         #set error you can only access your own home page
+        flash[:error] = "You can only access your own home page"
         redirect "/users/#{current_user.id}"
       end
     else 
       #set error please login first
+      flash[:error] ="Please Log In First"
       redirect "/login"
     end
   end
@@ -50,14 +54,17 @@ class UsersController < ApplicationController
               erb :"users/edituser"
           else 
             #showerror non admin user cannot edit another users profile
+            flash[:error] ="Only Admins Can Edit Other Users"
             redirect "/users/#{current_user.id}"
           end 
         else 
           #show error that user cannot be found 
+           flash[:error] = "Cannot find a user by that id"
            redirect "/users/#{current_user.id}"
         end 
     else
       #set error not logged in
+      flash[:error] ="Please login first"
       redirect "/login"
     end
   end
@@ -77,13 +84,16 @@ class UsersController < ApplicationController
       if user.save
         if user.id == current_user.id 
           #set message successfully updated your profile
+          flash[:message] ="Profile Successfully Updated!"
           redirect "/users/#{user.id}"
         elsif current_user.is_admin 
           #set message you have successfully updated username"
+          flash[:message] = "User #{user.username} has been successfully updated"
           redirect "/allusers"
         end
       else 
         #set error cannot update 
+        flash[:error] ="There were update errors. Please try again"
         redirect "/users/#{params[:id]}/edit"
       end
   end
@@ -96,10 +106,12 @@ class UsersController < ApplicationController
         erb :"users/allusers" 
       else
         #show error only admins
+        flash[:error] ="Only Admins have access to that page"
         redirect "/users/#{current_user.id}"
       end
     else 
       #show error need to login 
+      flash[:error] ="Please log in first"
       redirect "/login"
     end
   end
@@ -112,13 +124,16 @@ class UsersController < ApplicationController
      user = User.find_by(id: current_user.id)
      if user.is_admin
         #show message you can create users here
+        flash[:error] = "please create new users here instead"
         redirect "/allusers/new"
      else 
        #show error only admins can create new users
+       flash[:error] ="Only admins can create users"
        redirect "/users/#{user.id}"
      end
    else
      # error please login as admin to add new users
+     flash[:error] = "Please login as admin to add new users"
      redirect "/login"
    end
   end
@@ -132,10 +147,12 @@ class UsersController < ApplicationController
      user.is_admin = true
      if user.save
         session[:user_id] = user.id
+        flash[:message] = "you have successfully registered and logged in"
         #show message you have successfully registered and logged in
         redirect "/users/#{user.id}"
      else 
        #show error messages
+       flash[:error] = "There were some validation errors please ensure your passwords match and 6 or more characters. Ensure all info is complete"
        redirect "/register"
      end
    end
@@ -145,6 +162,7 @@ class UsersController < ApplicationController
       erb :"users/addnewuser"
     else
       #show error please login/register as an admin
+      flash[:error] ="Please login or register as admin"
       redirect "/login"
     end
   end
@@ -162,9 +180,11 @@ class UsersController < ApplicationController
     end 
     if user.save
        #show success message
+       flash[:message] ="Successfully created user"
        redirect "/allusers"
     else
       #show error 
+      flash[:error] ="There were some validation errors please try again"
       redirect "/allusers/new"
     end
   end
@@ -172,10 +192,12 @@ class UsersController < ApplicationController
   get '/logout' do
     if logged_in?
       #set message you have successfully logged out 
+      flash[:message] = "You have successfully logged out"
       session.clear
       redirect '/'
     else 
       #set message - you are not logged in/ your session has timed out
+      flash[:error] ="You are not logged in or your session has timed out"
       session.clear
       redirect '/'
     end
@@ -187,39 +209,40 @@ class UsersController < ApplicationController
           if user 
               if user.id == current_user.id
                 if user.is_admin
-  				admins = []
-  				User.all.each do |u| 
-  					admins << u.name unless u.is_admin ==false
-  				end
+        				admins = []
+        				User.all.each do |u| 
+        					admins << u.name unless u.is_admin ==false
+        				end
                  if admins.count < 2 
-                   #show error you are the only admin system needs at least one admin - to reset the app choose reset app instead in your management actions - or create another admin user
+                   flash[:error] = "you are the only admin system needs at least one admin - to reset the app choose reset app instead in your management actions - or create another admin user"
                    redirect "/users/#{current_user.id}/edit"
                  else 
                    session.clear 
                    user.destroy 
-                   #message you have successfully deleted your account 
+                   flash[:message] = "message you have successfully deleted your account" 
                    redirect "/"
                  end 
                 else 
                  session.clear 
                  user.destroy 
-                 #message you have successfully deleted your account 
+                flash[:message] = "message you have successfully deleted your account" 
                  redirect "/login"
                 end
               elsif current_user.is_admin
                 user.destroy 
-                 #message you have successfully deleted user 
+                flash[:message] = "message you have successfully deleted the user" 
                  redirect "/allusers"
               else 
                 #show error only admins can delete other users 
+                flash[:error] = "Only admins can delete other users" 
                 redirect "/users/#{current_user.id}"
               end
           else 
-  			#error user does not exist
+  			flash[:error] = "User does not exist" 
   			redirect "/users/#{current_user.id}"
   		end
       else 
-  		#error please login 
+  		flash[:error] = "Please login first"
   		redirect "/login"
       end
   end
