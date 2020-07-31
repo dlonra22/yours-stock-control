@@ -1,0 +1,21 @@
+<h2>Edit Item</h2>
+<p><a href="/items"><button>Back To Items</button></a> <a href="/"><button>Back To Home</button></a></p>
+
+<form method="post" action="/items/<%@item.id%>">
+  <p><label for="name">Item Name:</label>
+      <input type="Text" name="name"></p>
+      
+  <p><label for="description">Item Description:</label>
+      <input type="Text" name="description" id="description"></p>
+      
+  <p><label for="price">Price: £</label>
+  <input type="number" name="price" id="price" step="0.01" min="0">
+  
+  <p><label for="quantity">Quantity:</label>
+<input type="number" name="quantity" id="quantity" step="1" min="0">
+
+ <p><label for="restock_level">Restock Level:</label>
+  <input type="number" name="restock_level" id="restock_level" step="1" min="0">
+  
+<input type="submit" value="Submit">
+</form>
