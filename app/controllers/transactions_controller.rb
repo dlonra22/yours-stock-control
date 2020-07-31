@@ -13,7 +13,7 @@ get "/mytransactions" do
       @user = User.find_by(id: current_user.id)
       erb :"transactions/mytransactions"
     else 
-      # please login 
+      flash[:error] ="please login" 
       redirect "/login"
     end
   end #end of get mytransactions
@@ -23,13 +23,13 @@ get "/mytransactions" do
        @user = User.find_by(id: current_user.id)
        @items_available = Item.all
        if @items_available.count < 1 
-         #no items in inventory 
+         flash[:error] ="no items in inventory" 
          redirect "/users/#{current_user.id}"
        else
           erb :"transactions/new"
         end
     else
-      #please login 
+      flash[:error]= "please login" 
       redirect"/login"
     end
   end #end of mytransactions/new
@@ -40,8 +40,6 @@ get "/mytransactions" do
         trans_qty = params[:quantity].to_i
         transaction = Transaction.new
         if params[:category] == SALE 
-           puts "im selling"
-              binding.pry
            if item.quantity >= trans_qty
               transaction.quantity = trans_qty
               transaction.category = params[:category]
@@ -51,14 +49,10 @@ get "/mytransactions" do
               transaction.tr_value = trans_qty.to_f * item.price
               transaction.transaction_notes = "Item: #{item.name} Sold By: #{current_user.name} @: #{item.price} On: #{transaction.created_at}"
             else
-              #show error trans_qty is more than items in stock
-              puts "little stock"
-              binding.pry
+              flash[:error]="transaction quantity is more than items in stock"
               redirect "/mytransactions/new"
             end
         elsif params[:category] == STOCK
-              puts "im in stock"
-              binding.pry
               transaction.quantity = trans_qty
               transaction.category = params[:category]
               transaction.user_id = params[:user_id].to_i
@@ -66,17 +60,15 @@ get "/mytransactions" do
               item.quantity += trans_qty
               transaction.transaction_notes = "Item: #{item.name} * #{trans_qty} Restocked By: #{current_user.name} @: #{item.price} On: #{transaction.created_at}"
         else 
-          #show error no transactions of that type available 
-          puts "no T"
-              binding.pry
+          flash[:error]="no transactions of that type available" 
           redirect "/mytransactions/new"
           
         end
         if transaction.save && item.save
-           #show message transaction success
+           flash[:message]="transaction success"
            redirect "/mytransactions/:id"
          else 
-           #show error transaction failed 
+          flash[:error] = "transaction failed: #{transaction.errors.full_messages.to_sentence}: #{item.errors.full_messages.to_sentence} " 
            puts "failed"
               binding.pry
            redirect "/mytransactions/new"
