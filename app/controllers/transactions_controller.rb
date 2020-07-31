@@ -66,7 +66,7 @@ get "/mytransactions" do
         end
         if transaction.save && item.save
            flash[:message]="transaction success"
-           redirect "/mytransactions/:id"
+           redirect "/mytransactions/#{transaction.id}"
          else 
           flash[:error] = "transaction failed: #{transaction.errors.full_messages.to_sentence}: #{item.errors.full_messages.to_sentence} " 
            redirect "/mytransactions/new"
