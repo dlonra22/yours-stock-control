@@ -34,7 +34,8 @@ get "/mytransactions" do
     end
   end #end of mytransactions/new
   
-  post "/mytransactions/new" do 
+  post "/mytransactions/new" do
+    if logged_in?
         item = Item.find_by(id: params[:item_id].to_i)
         trans_qty = params[:quantity].to_i
         transaction = Transaction.new
@@ -69,6 +70,10 @@ get "/mytransactions" do
            #show error transaction failed 
            redirect "/mytransactions/new"
          end
+      else 
+        #please login 
+        redirect "/login"
+      end
     end
     
   get "/mytransactions/:id" do
