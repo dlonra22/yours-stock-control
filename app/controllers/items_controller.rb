@@ -6,6 +6,7 @@ class ItemsController < ApplicationController
         erb :"items/allitems"
       else 
         flash[:error] = "please login"
+        redirect "/login"
       end
   end
   
@@ -13,10 +14,10 @@ class ItemsController < ApplicationController
     if logged_in? && current_user.is_admin
        erb :"items/newitem"
     elsif logged_in?
-       #show error admins only 
+       flash[:error] = "admins only"
        redirect "/users/#{current_user.id}"
      else 
-       #please login 
+       flash[:error] = "please login" 
        redirect "/login"
      end
   end
@@ -27,11 +28,11 @@ class ItemsController < ApplicationController
         if @item 
           erb :"items/showitem"
         else 
-          #item does not exist or deleted 
+          flash[:error] = "item does not exist or deleted"
           redirect "/items"
         end
       else 
-        #please login 
+        flash[:error] = "please login"
         redirect "/login"
       end
   end

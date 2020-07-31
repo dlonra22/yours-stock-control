@@ -13,10 +13,13 @@ class ApplicationController < Sinatra::Base
   get "/" do
     #if already logged in redirect to users home page using sessions
     if logged_in?
+      flash[:error] = "already logged in"
       redirect "/users/#{current_user.id}"
     elsif User.all.empty?
+      flash[:message] = "No users in database please register"
       redirect "/register"
     else
+      flash[:message] = "please login"
       redirect "/login"
     end
   end
