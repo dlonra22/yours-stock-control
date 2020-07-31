@@ -65,16 +65,16 @@ class ItemsController < ApplicationController
     if logged_in? && current_user.is_admin
        @item = Item.find_by(id: params[:id])
       if @item 
-          erb :"items/showitem"
+          erb :"items/edititem"
       else 
-          #item does not exist or deleted 
+          flash[:error] = "item does not exist or deleted "
           redirect "/items"
       end
     elsif logged_in?
-        #admins only 
+        flash[:error] = "admins only" 
         redirect "/users/#{current_user.id}"
     else 
-        #please login
+        flash[:error] ="please login"
         redirect "/login"
     end
   end
