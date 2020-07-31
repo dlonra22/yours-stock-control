@@ -9,6 +9,12 @@
   <body>
     <h1>Your's Food And Wine Stock Management App</h1>
     <div class="wrapper">
+      <% if flash[:message]%>
+      <h4 style="color:turqois"<%=flash[:message]%>
+      <%end%>
+      <% if flash[:error]%>
+      <%=flash[:error] %>
+      <%end%>
       <div class="nav" margin-left:auto; margin-right:0;> 
         <%if logged_in?%>
           <a href="/logout"><button>Log Out</button></a>
