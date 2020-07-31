@@ -2,7 +2,7 @@
 <p><a href="/users/<%current_user.id%>"><button>Back To Home Page</button></a></p>
 <% @transactions.each do |t| %>
 <h4><%=t.category%> Action    Id: <%=t.id%> </h4>
-<p><a href="/mytransactions/<%=t.id%>"><button>Show Transaction</button></a></p>
+<p><a href="/mytransactions/<%=t.id%>">Show Transaction</a></p>
 <% item = Item.find_by(id: t.item_id)%>
 <%if item %>
   <p><strong>Item:</strong><%=item.name%> <strong>Price: </strong><%=item.price%></p>
