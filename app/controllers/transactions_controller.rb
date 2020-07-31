@@ -81,9 +81,8 @@ get "/mytransactions" do
         @transaction = Transaction.find_by(id: params[:id])
 			if @transaction
 				  if @transaction.user_id == current_user.id 
-  					@item = Item.find_by(id: @transaction.item_id) # may need validating if item is no longer available
-  					@user = User.find_by(id: @transaction.user_id) # may need rethinking if users or items have been deleted
-  					
+  					@item = Item.find_by(id: @transaction.item_id) 
+  					@user = User.find_by(id: @transaction.user_id) 
 					  erb :"transactions/usertransaction"
 				  else 
   					#show error this transaction is for a diffect user 

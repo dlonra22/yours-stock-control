@@ -3,13 +3,10 @@
   <label for="item_id">Choose an Item: </label>
   <select id="item_id" name="item_id">
     <%@items_available.each do |item| %>
-    <option value="<%=item.id%>"><%=item.name%></option>
+    <option value="<%=item.id%>"><%=item.name%> @ £<%=item.price%></option>
     <%end%>
   </select>
-  <label for="user_id">User Id:</label>
-  <input type = "text" name="user_id" disabled id="user_id" value="<%=@user.id%>">
   <input type = "hidden" name="user_id" id="user_id" value="<%=@user.id%>">
-  
   <label for="quantity">Quantity:</label> 
   <select name="quantity" id="quantity">
     <% 1.upto(20) do |i|%>
@@ -22,7 +19,5 @@
     <option value="Sale">Sell</option>
     <option value="Restock">Stock</option>
   </select>
-  <label for="tr_value">Value: </label>
-  <input type = "text" name="tr_value" readonly id="user_id" value="<%=@user.id%>">
   <input type="submit" value="Submit">
 </form>
