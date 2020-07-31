@@ -106,7 +106,25 @@ class ItemsController < ApplicationController
       #please login 
     end
   end
-    
+  
+  delete "/items/:id" do 
+    if logged_in? && current_user.is_admin
+       item = Item.find_by(id: params[:id])
+       if item 
+         item.destroy 
+         #show item successfully deleted 
+         redirect "/items"
+       else 
+         #cannot find item to delete 
+       end 
+    elsif logged_in? 
+      #only admins can delete items 
+      redirect "/items"
+    else 
+      #please login 
+      redirect "/login"
+    end
+  end
   
   
 end
