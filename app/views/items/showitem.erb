@@ -1,7 +1,12 @@
 <h2>Product View</h2>
+<p><a href="/"><button>Back To Home Page</button></a> <a href="/items"><button>Back To Inventory</button></a>  <%if current_user.is_admin%><a href="/items/new"><button>Add New Item To Inventory</button></a><%end%>  <a href="/mytransactions/new"><button>Restock/Sell</button></a></p>
 <p><strong><%=@item.name %></strong> £<%=@item.price%> Item Id:<%=@item.id%></p>
+<p><%=@item.description%></p> 
 <%if @item.quantity < @item.restock_level %> 
-<text color = "red"> Item needs restocking</text>
+<text style="color:red"> Item needs restocking</text>
 <%end%>
-
-<p><%=@item.description%></p>  
+<text><strong>In Stock: </strong><%=@item.quantity%> <strong>Reorder Level: </strong><%=@item.restock_level%></text> 
+<%if current_user.is_admin%><a href="/items/<%=@item.id%>/edit"><button>Edit</button></a>
+<a><form action="/items/<%=@item.id%>" method="post">
+      <input id="_method" type="hidden" name="_method" value="delete"><input type="submit" value="Delete Item" id="delete">
+</form><%end%></p></a>
