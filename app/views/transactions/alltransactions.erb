@@ -9,6 +9,4 @@
 <%end%>
 <p><strong>Created_On: </strong><%=t.created_at%> <strong>Qty: </strong><%=t.quantity%></p>
 <p><strong>Value: </strong><%=t.value%></p>
-<p><%if current_user.is_admin%><form action="/alltransactions/<%=t.id%>" method="post">
-      <input id="_method" type="hidden" name="_method" value="delete"><input type="submit" value="Delete Transaction" id="delete"></form><%end%></p>
 <%end%>
