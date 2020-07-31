@@ -2,7 +2,7 @@
 <p><a href="/users/<%current_user.id%>"><button>Back To Home Page</button></a></p>
 <% @transactions.each do |t| %>
 <p><a href="/alltransactions/<%=t.id%>"><button>Show Transaction</button></a></p>
+<h4>Action <%=t.category%>  Id: <%=t.id%> </h4>
 <p><strong>Created_On: </strong><%=t.created_at%> <strong>Qty: </strong><%=t.quantity%></p>
 <p><strong>Value: </strong><%=t.value%></p>
-<p><strong>Transaction Notes: </strong><%=t.transaction_notes%></p>
 <%end%>
