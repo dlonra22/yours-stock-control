@@ -1,5 +1,7 @@
 <h2>Add To Inventory</h2>
 <a href="/items"><button>Back To Items</button></a>
+
+<form method="post" action="/items/new">
   <p><label for="name">Item Name:</label>
       <input type="Text" name="name"></p>
       
@@ -14,4 +16,6 @@
 
  <p><label for="restock_level">Restock Level:</label>
   <input type="number" name="restock_level" id="restock_level" step="1">
-
+  
+<input type="submit" value="Submit">
+</form>
