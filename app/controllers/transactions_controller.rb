@@ -144,28 +144,28 @@ get "/mytransactions" do
 	  if transaction
 	    item = Item.find_by(transaction.item_id)
 	    if transaction.category == SALE 
-	      if item #readjusts stock value by transaction quantiy if item still exists
+	      if item # re-adjusts stock value by transaction quantiy if item still exists
 	        item.quantity += transaction.quantity
 	        item.save
 	      end
 	    else
-	      if item #readjusts stock value by transaction quantiy if item still exists
+	      if item #re-adjusts stock value by transaction quantiy if item still exists
 	        item.quantity -= transaction.quantity
 	        item.save
 	      end
 	    end
 	    transaction.destroy 
-	    #show message transaction deleted and stock levels adjusted
+	    flash[:message] ="transaction deleted and stock levels adjusted"
 	    redirect "/alltransactions"
 	  else 
-	    #show error transaction does not exist 
+	    flash[:error]="transaction does not exist" 
 	    redirect "/alltransactions"
 	  end
 	elsif logged_in? 
-	    #show error admins only
+	    flash[:error] ="admins only"
 	    redirect "/users/#{current_user.id}"
 	else
-	   #show please login 
+	   flash[:error]="please login" 
 	end
 end
   
