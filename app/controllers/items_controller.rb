@@ -1,7 +1,12 @@
 class ItemsController < ApplicationController
 
   get "/items" do
-    erb :"items/allitems"
+    if logged_in?
+        @items = Item.all 
+        erb :"items/allitems"
+      else 
+        #please login 
+      end
   end
   
   get "/items/new" do
@@ -46,11 +51,28 @@ class ItemsController < ApplicationController
           #show error 
           redirect "/items/new"
         end 
-  elsif logged_in?
+    elsif logged_in?
         #admins only 
         redirect "/users/#{current_user.id}"
     else 
         #please login
         redirect "/login"
-    end 
+    end
+  end 
+  
+  get "/items/:id/edit" do
+    if logged_in? && current_user.is_admin
+       @item = Item.find_by(id: params[:id])
+       if @item 
+          erb :"items/showitem"
+        else 
+          #item does not exist or deleted 
+        end
+      else 
+        #please login 
+        redirect "/login"
+      end
+  end
+  
+  
 end
