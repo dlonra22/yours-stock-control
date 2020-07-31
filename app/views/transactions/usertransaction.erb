@@ -11,7 +11,7 @@
   <p>User Relating to this transaction is no longer exists: please refer to notes below</p>
 <%end%>
 <p>Transaction Id: <%=@transaction.id%> Item Id: <%=@transaction.item_id%> User Id: <%=@transaction.user_id%></p>
-<p><strong>Qty: </strong><%=@transaction.quantity%> <strong>Value: </strong><%=@transaction.value%></p>
+<p><strong>Qty: </strong><%=@transaction.quantity%> <strong>Value: </strong><%=@transaction.tr_value%></p>
 <p><strong>Transaction Notes: </strong><%=@transaction.transaction_notes%></p>
 <p><strong>Created At: </strong><%=@transaction.created_at%></p>
 <p><%if current_user.is_admin%><form action="/alltransactions/<%=@transaction.id%>" method="post">
