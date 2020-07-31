@@ -3,12 +3,14 @@
 <% @user_trans.each do |t| %>
     <%item = Item.find_by(t.item_id)%>
     <% if item %> 
-    <%itemname = item.name%> 
-    <%itemprice =item.price%>
+      <%itemname = item.name%> 
+      <%itemprice =item.price%>
     <%else %>
-    <%itemname = "Item No Longer In Inventory Refer To Transaction Notes"%>
-    <%itemprice = "-"
-    <p><strong>Created_On: </strong><%=t.created_at%> <strong>Item:</strong> <%=item.name%> <strong>Qty: </strong><%=t.quantity%> <strong>Price: </strong><%=item.price%></p>
+      <%itemname = "Item No Longer In Inventory. Refer To Transaction Notes"%>
+      <%itemprice = "-"%>
+    <%end%>
+    <p><strong>Item:</strong> <%=itemname%> <strong>Price: </strong><%=itemprice%></p>
+    <p><strong>Created_On: </strong><%=t.created_at%> <strong>Qty: </strong><%=t.quantity%></p>
 <p><strong>By:</strong> <%=@user.name%> <strong>Value: </strong><%=t.value%></p>
-<p></p><strong>Transaction Notes: </strong><%=t.transaction_notes%></p>
+<p><strong>Transaction Notes: </strong><%=t.transaction_notes%></p>
 <%end%>
