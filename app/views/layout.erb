@@ -10,10 +10,10 @@
     <h1>Your's Food And Wine Stock Management App</h1>
     <div class="wrapper">
       <% if flash[:message]%>
-      <h4 style="color:turqois"<%=flash[:message]%>
+      <h4 style="color:MediumSpringGreen"><%=flash[:message]%></h4>
       <%end%>
       <% if flash[:error]%>
-      <%=flash[:error] %>
+      <h4 style="color:FireBrick"><%=flash[:error] %></h4>
       <%end%>
       <div class="nav" margin-left:auto; margin-right:0;> 
         <%if logged_in?%>
