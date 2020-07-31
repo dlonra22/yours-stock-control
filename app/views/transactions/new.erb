@@ -1,9 +1,11 @@
 <h2>Sell or Restock An item</h2>
+<p><a href="/users/<%=current_user.id%>"><button>Back To Home Page</button></a> <a href="/mytransactions"><button>Back To Transactions</button></a> <a href="/items"><button>Back To Inventory</button></a></p>
 <form method="post" action="/mytransactions/new">
   <label for="item_id">Choose an Item: </label>
   <select id="item_id" name="item_id">
     <%@items_available.each do |item| %>
-    <option value="<%=item.id%>"><%=item.name%> @ £<%=item.price%></option>
+    <%if item.quantity < item.restock_level%><%mycolor = "red"%><%end%>
+    <option value="<%=item.id%>" style="color:<%=mycolor%>"><%=item.name%> @ £<%=item.price%> Instock: <%=item.quantity%></option>
     <%end%>
   </select>
   <input type = "hidden" name="user_id" id="user_id" value="<%=@user.id%>">
