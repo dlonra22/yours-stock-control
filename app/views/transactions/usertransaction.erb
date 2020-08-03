@@ -13,7 +13,7 @@
 <p>Transaction Id: <%=@transaction.id%> Item Id: <%=@transaction.item_id%> User Id: <%=@transaction.user_id%></p>
 <p><strong>Qty: </strong><%=@transaction.quantity%> <strong>Value: </strong><%=@transaction.tr_value%></p>
 <p><strong>Transaction Notes: </strong><%=@transaction.transaction_notes%></p>
-<p><strong>Created At: </strong><%=@transaction.created_at%></p>
+<p><strong>Created On: </strong><%=@transaction.created_at%></p>
 <p><%if current_user.is_admin%><form action="/alltransactions/<%=@transaction.id%>" method="post">
       <input id="_method" type="hidden" name="_method" value="delete"><input type="submit" value="Delete Transaction" id="delete"></form><%end%></p>
 
