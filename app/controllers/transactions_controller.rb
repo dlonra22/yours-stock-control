@@ -101,9 +101,19 @@ get "/mytransactions" do
 	
 	#******items transacted on by user *****
 	get "/useritems" do 
-	  if logged_in?
-  	  binding.pry
-  	  @users = User.all 
+	  if logged_in? && current_user.is_admin
+      @users = Transaction.all.collect do |transaction| 
+        transaction.user 
+      end
+      if @users ==[] 
+         flash[:error] = "Cannot show transacted items as no transactions yet"
+         redirect "/users/#{current_user.id}"
+       else 
+  	      erb :"transactions/useritems"
+  	   end
+  	elsif !current_user.is_admin
+  	      flash[:error] = "Only admins"
+  	      redirect "/users/#{current_user.id}"
 	  else 
   	  flash[:error] ="please log in"
   	  redirect "/login"
