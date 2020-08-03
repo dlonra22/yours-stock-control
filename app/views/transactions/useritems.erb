@@ -1,2 +1,9 @@
 <h2>Items Sold By User</h2>
 <p><a href="/users/<%=current_user.id%>"><button>Back To Home Page</button></a> <a href="/alltransactions"><button>All Transactions</button></a></p>
+<%@users.each do |user|%>
+<h3><%=user.username%> items sold:</h3>
+    <% user.transactions.each do |transaction|%>
+      <p><%=item.name%> £<%=item.tran%></p>
+|  end
+|  puts "Total: #{user.items.sum(:price)}"
+|  end
