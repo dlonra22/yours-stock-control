@@ -1,5 +1,6 @@
 <h2>Items Sold By User</h2>
 <p><a href="/users/<%=current_user.id%>"><button>Back To Home Page</button></a> <a href="/alltransactions"><button>All Transactions</button></a></p>
+<%if current_user.is_admin%>
 <%@users.each do |user|%>
 <h3><%=user.username%> items sold:</h3>
     <% user.transactions.each do |transaction|%>
@@ -9,3 +10,13 @@
      <% end%>
      <p><strong>Total:</strong> £<%=user.transactions.sum(:tr_value)%> </p><br>
   <%end%>
+  <%else%>
+  <h3>My items sold:</h3>
+    <% @transactions.each do |transaction|%>
+      <p><%=transaction.item.name%> Type:<%=transaction.category%>
+      Qty:<%=transaction.quantity%> @ £<%=transaction.item.price%> each</p>
+      <p>Value: £<%=transaction.tr_value%></p>
+     <% end%>
+     <p><strong>Total:</strong> £<%=transactions.sum(:tr_value)%> </p><br>
+  <%end%>
+  
