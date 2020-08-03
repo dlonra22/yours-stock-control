@@ -7,12 +7,14 @@
 <p><strong>Username: </strong><%=@user.username%> <strong>UserType:</strong> <%=usertype%></p>
 <h6>Please choose what you would like to do?</h6>
 <h3> Transactions</h3>
-<a href="/mytransactions/new">Sell/Restock</a>
-<a href="/mytransactions">My Transactions</a><br><br>
+<a href="/mytransactions/new">Sell/Restock</a> 
+<a href="/mytransactions">My Transactions</a> 
+<a href="/useritems">My items</a> <br><br>
 <h3>Management Actions</h3>
 <%if @user.is_admin%>
 <a href="/allusers">Manage Users</a>
 <a href="/alltransactions">Transaction Reports</a>
+<a href="/useritems">Items Sold by User</a>
 <%end%>
 <a href="/items">Items Inventory</a>
 <a href="/users/<%=@user.id%>/edit">Manage My Profile</a>
