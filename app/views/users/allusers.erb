@@ -1,5 +1,5 @@
 <h1>Other System Users</h1>
-<p><a href="/allusers/new"><button>Create New User</button></a> <a href="/"><button>Back To Home Page</button></a>
+<p><a href="/allusers/new"><button>Create New User</button></a> <a href="/users/<%=current_user.id%>"><button>Back To Home Page</button></a>
 </p>
 <%@users.each do |user| %> 
   <%if user.is_admin%> 
