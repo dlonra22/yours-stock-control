@@ -99,7 +99,14 @@ get "/mytransactions" do
     end 
 	end
 	
-	# Exclusive Admin actions ******************************************************************************************
+	#******items transacted on by user *****
+	get "/useritems" do 
+	  binding.pry
+	end
+	
+	
+	
+	#*******Exclusive Admin actions*********
 	get "/alltransactions" do
     if logged_in?
       if current_user.is_admin
