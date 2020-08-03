@@ -101,7 +101,14 @@ get "/mytransactions" do
 	
 	#******items transacted on by user *****
 	get "/useritems" do 
-	  binding.pry
+	  if logged_in?
+  	  binding.pry
+  	  @users = User.all 
+	  else 
+  	  flash[:error] ="please log in"
+  	  redirect "/login"
+	  end
+	  
 	end
 	
 	
