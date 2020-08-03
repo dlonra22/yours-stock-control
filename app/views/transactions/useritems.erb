@@ -7,5 +7,5 @@
       Qty:<%=transaction.quantity%> @ £<%=transaction.item.price%> each</p>
       <p>Value: £<%=transaction.tr_value%></p>
      <% end%>
-     <p>Total: £<%=user.transactions.sum(:tr_value)%> </p>
+     <p><strong>Total:</strong> £<%=user.transactions.sum(:tr_value)%> </p><br>
   <%end%>
