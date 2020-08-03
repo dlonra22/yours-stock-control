@@ -47,7 +47,7 @@ get "/mytransactions" do
               transaction.item_id = item.id
               item.quantity -= trans_qty
               transaction.tr_value = trans_qty.to_f * item.price
-              transaction.transaction_notes = "Item: #{item.name} Sold By: #{current_user.name} @: #{item.price} On: #{transaction.created_at}"
+              transaction.transaction_notes = "Item: #{item.name} * #{transaction.quantity} Sold By: #{current_user.name} @:£#{item.price}"
             else
               flash[:error]="transaction quantity is more than items in stock"
               redirect "/mytransactions/new"
