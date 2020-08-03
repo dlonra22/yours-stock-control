@@ -2,8 +2,7 @@
 <p><a href="/users/<%=current_user.id%>"><button>Back To Home Page</button></a> <a href="/alltransactions"><button>All Transactions</button></a></p>
 <%@users.each do |user|%>
 <h3><%=user.username%> items sold:</h3>
-    <% user.transactions.each do |transaction|%>
-      <p><%=item.name%> £<%=item.tran%></p>
-|  end
-|  puts "Total: #{user.items.sum(:price)}"
-|  end
+    <% user.items.each do |item|%>
+      <p><%=item.name%> £<%=item.price%></p>
+     <% end%>
+  <%end%>
