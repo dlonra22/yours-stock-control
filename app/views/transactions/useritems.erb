@@ -3,7 +3,9 @@
 <%@users.each do |user|%>
 <h3><%=user.username%> items sold:</h3>
     <% user.transactions.each do |transaction|%>
-      <p><%=transaction.item.name%> <%=transaction.quantity%> <%=transaction.item.price%></p>
-      <p>£<%=transaction.value%></p>
+      <p><%=transaction.item.name%> Type:<%=transaction.category%>
+      Qty:<%=transaction.quantity%> @ £<%=transaction.item.price%> each</p>
+      <p>Value: £<%=transaction.tr_value%></p>
      <% end%>
+     <p>Total: £<%=user.transactions.sum(:tr_value)%> </p>
   <%end%>
