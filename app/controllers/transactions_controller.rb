@@ -101,29 +101,22 @@ get "/mytransactions" do
 	end
 	
 	#******items transacted on by user *****
-	get "/useritems" do 
-	  if logged_in? && current_user.is_admin
-      @users = Transaction.all.collect do |transaction| 
-        transaction.user 
-      end
-      if @users ==[] 
+	get "/myitems" do 
+	  if logged_in?
+      @transactions = Transaction.find_by(user_id: current_user.id)
+      if @transactions ==[] 
          flash[:error] = "Cannot show transacted items as no transactions yet"
          redirect "/users/#{current_user.id}"
        else 
   	      erb :"transactions/useritems"
   	   end
-  	elsif !current_user.is_admin
-  	      flash[:error] = "Only admins"
-  	      redirect "/users/#{current_user.id}"
 	  else 
   	  flash[:error] ="please log in"
   	  redirect "/login"
 	  end
 	  
 	end
-	
-	
-	
+
 	#*******Exclusive Admin actions*********
 	get "/alltransactions" do
     if logged_in?
@@ -193,5 +186,26 @@ get "/mytransactions" do
 	   flash[:error]="please login" 
 	end
 end
+
+get "/useritems" do 
+	  if logged_in? && current_user.is_admin
+      @users = Transaction.all.collect do |transaction| 
+        transaction.user 
+      end
+      if @users ==[] 
+         flash[:error] = "Cannot show transacted items as no transactions yet"
+         redirect "/users/#{current_user.id}"
+       else 
+  	      erb :"transactions/useritems"
+  	   end
+  	elsif !current_user.is_admin
+  	      flash[:error] = "Only admins"
+  	      redirect "/users/#{current_user.id}"
+	  else 
+  	  flash[:error] ="please log in"
+  	  redirect "/login"
+	  end
+	  
+	end
   
 end #end of controller
